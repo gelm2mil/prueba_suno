@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GELM - Descargador Personal</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .archivo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    a {
+      padding: 8px 14px;
+      text-decoration: none;
+      border-radius: 6px;
+      background: #198754;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>🎵 Mis archivos multimedia</h1>
+
+  <div id="lista"></div>
+
+  <script>
+    // URLs de archivos propios o autorizados
+    const archivos = [
+      {
+        nombre: "Cancion_01.mp3",
+        url: "https://ejemplo.com/musica/cancion01.mp3"
+      },
+      {
+        nombre: "Cancion_02.mp3",
+        url: "https://ejemplo.com/musica/cancion02.mp3"
+      },
+      {
+        nombre: "Cancion_03.mp3",
+        url: "https://ejemplo.com/musica/cancion03.mp3"
+      }
+    ];
+
+    const lista = document.getElementById("lista");
+
+    archivos.forEach(archivo => {
+
+      const contenedor = document.createElement("div");
+      contenedor.className = "archivo";
+
+      const nombre = document.createElement("span");
+      nombre.textContent = archivo.nombre;
+
+      const boton = document.createElement("a");
+
+      boton.href = archivo.url;
+      boton.download = archivo.nombre;
+      boton.textContent = "⬇ Descargar";
+      boton.target = "_blank";
+      boton.rel = "noopener noreferrer";
+
+      contenedor.appendChild(nombre);
+      contenedor.appendChild(boton);
+
+      lista.appendChild(contenedor);
+    });
+  </script>
+
+</body>
+</html>
