@@ -1,86 +1,47 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GELM - Descargador Personal</title>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 700px;
-      margin: 40px auto;
-      padding: 20px;
-    }
-
-    .archivo {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-      padding: 12px;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-
-    a {
-      padding: 8px 14px;
-      text-decoration: none;
-      border-radius: 6px;
-      background: #198754;
-      color: white;
-    }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="theme-color" content="#070b13">
+  <meta name="description" content="GELM CITY 3D — domina la ciudad con tu agujero negro">
+  <title>GELM CITY 3D — HOLE ARENA</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./styles.css">
 </head>
-
 <body>
-
-  <h1>🎵 Mis archivos multimedia</h1>
-
-  <div id="lista"></div>
-
-  <script>
-    // URLs de archivos propios o autorizados
-    const archivos = [
-      {
-        nombre: "Cancion_01.mp3",
-        url: "https://ejemplo.com/musica/cancion01.mp3"
-      },
-      {
-        nombre: "Cancion_02.mp3",
-        url: "https://ejemplo.com/musica/cancion02.mp3"
-      },
-      {
-        nombre: "Cancion_03.mp3",
-        url: "https://ejemplo.com/musica/cancion03.mp3"
-      }
-    ];
-
-    const lista = document.getElementById("lista");
-
-    archivos.forEach(archivo => {
-
-      const contenedor = document.createElement("div");
-      contenedor.className = "archivo";
-
-      const nombre = document.createElement("span");
-      nombre.textContent = archivo.nombre;
-
-      const boton = document.createElement("a");
-
-      boton.href = archivo.url;
-      boton.download = archivo.nombre;
-      boton.textContent = "⬇ Descargar";
-      boton.target = "_blank";
-      boton.rel = "noopener noreferrer";
-
-      contenedor.appendChild(nombre);
-      contenedor.appendChild(boton);
-
-      lista.appendChild(contenedor);
-    });
-  </script>
-
+<main id="game">
+  <div id="scene"></div>
+  <header class="topbar">
+    <div class="brand"><div class="logo">G</div><div><strong>GELM CITY 3D</strong><small>HOLE ARENA • BOT CHALLENGE</small></div></div>
+    <div class="hud">
+      <div class="pill"><small>⭐ PUNTOS</small><b id="score">0</b></div>
+      <div class="pill"><small>⬆ NIVEL</small><b id="level">1</b></div>
+      <div class="pill"><small>◉ TAMAÑO</small><b id="size">1.0</b></div>
+      <div class="pill timer"><small>⏱ TIEMPO</small><b id="timer">03:00</b></div>
+    </div>
+  </header>
+  <section class="mission"><i></i><div><b id="missionTitle">¡Empieza pequeño, termina gigante!</b><small id="missionText">Absorbe objetos pequeños para crecer. Evita agujeros más grandes.</small></div></section>
+  <aside class="leaderboard"><b>🏆 CLASIFICACIÓN</b><ol id="ranking"></ol></aside>
+  <div class="progress"><div class="progress-label"><span>PROGRESO AL SIGUIENTE NIVEL</span><b id="xpLabel">0 / 100</b></div><div class="track"><div id="xpBar"></div></div></div>
+  <div class="toast" id="toast"></div>
+  <div class="gameover" id="gameover">
+    <div class="over-card">
+      <div class="over-icon">🕳️</div><h1 id="overTitle">¡TE ABSORBIERON!</h1>
+      <p id="overText">Un agujero más grande te tragó.</p>
+      <div class="final-stats"><span>PUNTOS<b id="finalScore">0</b></span><span>NIVEL<b id="finalLevel">1</b></span><span>POSICIÓN<b id="finalRank">—</b></span></div>
+      <button id="restartBtn">VOLVER A JUGAR</button>
+    </div>
+  </div>
+  <div class="mobile-controls">
+    <div class="dpad">
+      <button data-key="up" class="up">▲</button><button data-key="left" class="left">◀</button>
+      <button data-key="down" class="down">▼</button><button data-key="right" class="right">▶</button>
+    </div>
+    <div class="mobile-tip">DESLIZA / USA LAS FLECHAS</div>
+  </div>
+  <footer><span>GELM • HOLE ARENA v2.0</span><span id="status">BOT CHALLENGE</span><button id="pauseBtn">Ⅱ PAUSA</button><button id="restartSmall">↻ REINICIAR</button></footer>
+</main>
+<script type="module" src="./game.js"></script>
 </body>
 </html>
