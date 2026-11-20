@@ -60,6 +60,36 @@ function addObject(type,x,z,radius,points,color){
   obj=new THREE.Group();scene.add(obj);obj.position.set(x,0,z);
   const pole=new THREE.Mesh(new THREE.CylinderGeometry(.09,.12,3.8,7),mat(0x59646a));pole.position.y=1.9;obj.add(pole);
   const head=new THREE.Mesh(new THREE.BoxGeometry(.65,.2,.35),mat(0xffe8a2));head.position.set(.22,3.7,0);obj.add(head);
+ }else if(type==='bag'){
+  obj=new THREE.Group();scene.add(obj);obj.position.set(x,0,z);
+  const sack=new THREE.Mesh(new THREE.SphereGeometry(.52,10,8),mat(0x20272c));sack.scale.set(.9,1.05,.85);sack.position.y=.48;obj.add(sack);
+  const knot=new THREE.Mesh(new THREE.ConeGeometry(.13,.28,6),mat(0x11171b));knot.position.set(0,1.0,0);obj.add(knot);
+ }else if(type==='bottle'){
+  obj=new THREE.Group();scene.add(obj);obj.position.set(x,0,z);
+  const bottle=new THREE.Mesh(new THREE.CylinderGeometry(.16,.2,.75,8),mat(0x42b8a5,.35));bottle.position.y=.38;obj.add(bottle);
+  const neck=new THREE.Mesh(new THREE.CylinderGeometry(.07,.1,.2,8),mat(0x42b8a5,.35));neck.position.y=.86;obj.add(neck);
+ }else if(type==='can'){
+  obj=new THREE.Group();scene.add(obj);obj.position.set(x,0,z);
+  const can=new THREE.Mesh(new THREE.CylinderGeometry(.22,.22,.55,10),mat(color,.35));can.position.y=.28;obj.add(can);
+ }else if(type==='paper'){
+  obj=new THREE.Group();scene.add(obj);obj.position.set(x,.08,z);
+  const sheet=new THREE.Mesh(new THREE.PlaneGeometry(.85,.65),new THREE.MeshStandardMaterial({color:0xf4f0df,side:THREE.DoubleSide}));sheet.rotation.x=-Math.PI/2;obj.add(sheet);
+ }else if(type==='pedestrian'){
+  obj=new THREE.Group();scene.add(obj);obj.position.set(x,0,z);
+  const skin=mat([0xd99a70,0x8e5b3d,0xf0c39b,0xb87955][Math.floor(Math.random()*4)]);
+  const shirt=mat(color),pants=mat([0x253b62,0x33363e,0x5d4638,0x31584a][Math.floor(Math.random()*4)]);
+  const torso=new THREE.Mesh(new THREE.BoxGeometry(.48,.68,.28),shirt);torso.position.y=1.05;obj.add(torso);
+  const head=new THREE.Mesh(new THREE.SphereGeometry(.2,10,8),skin);head.position.y=1.55;obj.add(head);
+  const hair=new THREE.Mesh(new THREE.SphereGeometry(.205,8,6),mat(0x30231e));hair.scale.set(1,.48,1);hair.position.set(0,1.68,-.015);obj.add(hair);
+  const arms=[],legs=[];
+  for(const side of [-1,1]){
+   const arm=new THREE.Mesh(new THREE.BoxGeometry(.14,.52,.16),skin);arm.position.set(side*.34,1.08,0);obj.add(arm);arms.push(arm);
+   const leg=new THREE.Mesh(new THREE.BoxGeometry(.17,.52,.19),pants);leg.position.set(side*.13,.43,0);obj.add(leg);legs.push(leg);
+  }
+  obj.userData.animParts={arms,legs,torso,head};
+  obj.userData.motion=Math.random()<.24?'dance':(Math.random()<.5?'run':'walk');
+  obj.userData.phase=Math.random()*Math.PI*2;
+  obj.userData.walkSpeed=obj.userData.motion==='run'?5.2:(obj.userData.motion==='dance'?0:2.1);
  }else{
   obj=mesh(new THREE.BoxGeometry(1.3,1.3,1.3),mat(color),x,.65,z);
  }
@@ -98,6 +128,28 @@ for(let i=0;i<16;i++){
  const z=horizontal?road+(Math.random()>.5?4:-4):along;
  const car=addObject('car',x,z,1.85,55,[0x267fc2,0xe4b12b,0x36a66d,0xd84c54][i%4]);
  car.rotation.y=horizontal?Math.PI/2:0;
+}
+
+// Basura pequeña para que el jugador pueda empezar a crecer desde el nivel 1.
+for(let i=0;i<105;i++){
+ const x=rnd(-86,86),z=rnd(-86,86);
+ if(Math.abs(x%GRID)<7||Math.abs(z%GRID)<7)continue;
+ const r=Math.random();
+ if(r<.34)addObject('bag',x,z,.62,10,0x20272c);
+ else if(r<.60)addObject('bottle',x,z,.34,6,0x42b8a5);
+ else if(r<.82)addObject('can',x,z,.3,5,[0xd94c45,0x3f8bc9,0xc6a83e][i%3]);
+ else addObject('paper',x,z,.25,3,0xf4f0df);
+}
+// Peatones de baja poligonización: caminando, corriendo y bailando.
+const pedestrianColors=[0xe34d5b,0x347fc1,0xe1a83a,0x6d55b5,0x35a77b,0xe5e7e8,0xd477a6];
+for(let i=0;i<34;i++){
+ let x=rnd(-82,82),z=rnd(-82,82);
+ if(Math.abs(x%GRID)<7||Math.abs(z%GRID)<7){x+=Math.sign(x||1)*8;z+=Math.sign(z||1)*8}
+ const p=addObject('pedestrian',x,z,.52,18,pedestrianColors[i%pedestrianColors.length]);
+ p.userData.motion=['walk','walk','run','dance'][i%4];
+ p.userData.walkSpeed=p.userData.motion==='run'?5:(p.userData.motion==='walk'?2:0);
+ p.userData.direction=new THREE.Vector2(Math.random()-.5,Math.random()-.5).normalize();
+ p.rotation.y=Math.atan2(p.userData.direction.x,p.userData.direction.y);
 }
 
 // Hole entities use a black disk, glowing rim and shadow well.
@@ -203,11 +255,39 @@ function resetGame(){
 $('#restartBtn').onclick=resetGame;$('#restartSmall').onclick=resetGame;
 $('#pauseBtn').onclick=()=>{if(gameEnded)return;paused=!paused;$('#pauseBtn').textContent=paused?'▶ SEGUIR':'Ⅱ PAUSA';$('#status').textContent=paused?'PAUSADO':'BOT CHALLENGE';showToast(paused?'JUEGO EN PAUSA':'¡A JUGAR!')};
 
+function animateCityLife(dt){
+ for(const o of objects){
+  if(!o.userData.alive)continue;
+  if(o.userData.kind==='pedestrian'){
+   const p=o.userData.animParts;if(!p)continue;
+   o.userData.phase=(o.userData.phase||0)+dt*(o.userData.motion==='dance'?7:(o.userData.motion==='run'?11:5));
+   const t=o.userData.phase;
+   if(o.userData.motion==='dance'){
+    p.legs[0].rotation.x=Math.sin(t)*.35;p.legs[1].rotation.x=-Math.sin(t)*.35;
+    p.arms[0].rotation.z=.65+Math.sin(t*1.4)*.55;p.arms[1].rotation.z=-.65-Math.sin(t*1.4)*.55;
+    p.torso.rotation.y=Math.sin(t*.5)*.22;p.torso.position.y=1.05+Math.abs(Math.sin(t*2))*.09;
+   }else{
+    const swing=Math.sin(t)*(o.userData.motion==='run'?.75:.42);
+    p.legs[0].rotation.x=swing;p.legs[1].rotation.x=-swing;
+    p.arms[0].rotation.x=-swing*.8;p.arms[1].rotation.x=swing*.8;
+    p.torso.position.y=1.05+Math.abs(Math.sin(t*2))*(o.userData.motion==='run'?.10:.035);
+    const d=o.userData.direction||new THREE.Vector2(1,0);
+    o.position.x+=d.x*o.userData.walkSpeed*dt;o.position.z+=d.y*o.userData.walkSpeed*dt;
+    if(Math.abs(o.position.x)>88||Math.abs(o.position.z)>88||Math.random()<dt*.035){
+     d.set(Math.random()-.5,Math.random()-.5).normalize();o.userData.direction=d;o.rotation.y=Math.atan2(d.x,d.y);
+    }
+   }
+  }else if(o.userData.kind==='bag'){o.rotation.y+=dt*.35}
+  else if(o.userData.kind==='bottle'||o.userData.kind==='can'){o.rotation.y+=dt*.15}
+ }
+}
+
 const clock=new THREE.Clock();
 function animate(){
  requestAnimationFrame(animate);const dt=Math.min(clock.getDelta(),.04);
  if(!paused&&!gameEnded){
   timeLeft=Math.max(0,timeLeft-dt);
+  animateCityLife(dt);
   holes.forEach(h=>moveHole(h,dt));
   // Object absorption by every active hole.
   for(const h of holes){if(!h.alive)continue;for(const o of objects){if(o.userData.alive&&canEat(h,o))absorb(h,o,dt)}}
