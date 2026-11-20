@@ -74,6 +74,41 @@ function addObject(type,x,z,radius,points,color){
  }else if(type==='paper'){
   obj=new THREE.Group();scene.add(obj);obj.position.set(x,.08,z);
   const sheet=new THREE.Mesh(new THREE.PlaneGeometry(.85,.65),new THREE.MeshStandardMaterial({color:0xf4f0df,side:THREE.DoubleSide}));sheet.rotation.x=-Math.PI/2;obj.add(sheet);
+ }else if(type==='marble'){
+  obj=new THREE.Group();scene.add(obj);obj.position.set(x,.19,z);
+  const marble=new THREE.Mesh(new THREE.SphereGeometry(.2,14,10),new THREE.MeshStandardMaterial({color,metalness:.18,roughness:.22}));obj.add(marble);
+  const glint=new THREE.Mesh(new THREE.SphereGeometry(.065,8,6),mat(0xffffff,.15));glint.position.set(-.07,.09,.12);obj.add(glint);
+ }else if(type==='yoyo'){
+  obj=new THREE.Group();scene.add(obj);obj.position.set(x,0,z);
+  const disc1=new THREE.Mesh(new THREE.CylinderGeometry(.32,.32,.13,14),mat(color,.35));disc1.rotation.x=Math.PI/2;disc1.position.y=.38;obj.add(disc1);
+  const disc2=disc1.clone();disc2.position.y=.58;obj.add(disc2);
+  const axle=new THREE.Mesh(new THREE.CylinderGeometry(.09,.09,.25,10),mat(0xb9c4c8,.3));axle.rotation.x=Math.PI/2;axle.position.y=.48;obj.add(axle);
+ }else if(type==='top'){
+  obj=new THREE.Group();scene.add(obj);obj.position.set(x,0,z);
+  const body=new THREE.Mesh(new THREE.ConeGeometry(.42,.85,10),mat(color,.42));body.position.y=.48;obj.add(body);
+  const cap=new THREE.Mesh(new THREE.SphereGeometry(.13,10,8),mat(0xc7a46b));cap.position.y=.93;obj.add(cap);
+ }else if(type==='claypot'){
+  obj=new THREE.Group();scene.add(obj);obj.position.set(x,0,z);
+  const pm=new THREE.MeshStandardMaterial({color,roughness:.96});
+  const belly=new THREE.Mesh(new THREE.SphereGeometry(.43,12,9),pm);belly.scale.set(1,.88,1);belly.position.y=.4;obj.add(belly);
+  const mouth=new THREE.Mesh(new THREE.CylinderGeometry(.25,.29,.16,12),pm);mouth.position.y=.78;obj.add(mouth);
+  const opening=new THREE.Mesh(new THREE.CircleGeometry(.21,12),mat(0x493027));opening.rotation.x=-Math.PI/2;opening.position.y=.865;obj.add(opening);
+ }else if(type==='claybowl'){
+  obj=new THREE.Group();scene.add(obj);obj.position.set(x,0,z);
+  const bm=new THREE.MeshStandardMaterial({color,roughness:1,side:THREE.DoubleSide});
+  const bowl=new THREE.Mesh(new THREE.CylinderGeometry(.48,.27,.34,12,1,true),bm);bowl.position.y=.19;obj.add(bowl);
+  const inside=new THREE.Mesh(new THREE.CircleGeometry(.37,12),mat(0x6d4634));inside.rotation.x=-Math.PI/2;inside.position.y=.36;obj.add(inside);
+ }else if(type==='clayjug'){
+  obj=new THREE.Group();scene.add(obj);obj.position.set(x,0,z);
+  const jm=new THREE.MeshStandardMaterial({color,roughness:1});
+  const belly=new THREE.Mesh(new THREE.SphereGeometry(.38,12,9),jm);belly.scale.set(1,1.05,1);belly.position.y=.43;obj.add(belly);
+  const neck=new THREE.Mesh(new THREE.CylinderGeometry(.13,.19,.35,10),jm);neck.position.y=.82;obj.add(neck);
+  const rim=new THREE.Mesh(new THREE.TorusGeometry(.14,.045,6,12),jm);rim.position.y=1.02;obj.add(rim);
+  const handle=new THREE.Mesh(new THREE.TorusGeometry(.22,.055,6,12,Math.PI*1.55),jm);handle.position.set(.34,.55,0);handle.rotation.z=Math.PI/2;obj.add(handle);
+ }else if(type==='claycomal'){
+  obj=new THREE.Group();scene.add(obj);obj.position.set(x,0,z);
+  const cm=new THREE.MeshStandardMaterial({color,roughness:1,side:THREE.DoubleSide});
+  const disc=new THREE.Mesh(new THREE.CylinderGeometry(.55,.5,.12,16),cm);disc.position.y=.12;obj.add(disc);
  }else if(type==='pedestrian'){
   obj=new THREE.Group();scene.add(obj);obj.position.set(x,0,z);
   const skin=mat([0xd99a70,0x8e5b3d,0xf0c39b,0xb87955][Math.floor(Math.random()*4)]);
@@ -131,7 +166,7 @@ for(let i=0;i<16;i++){
 }
 
 // Basura pequeña para que el jugador pueda empezar a crecer desde el nivel 1.
-for(let i=0;i<105;i++){
+for(let i=0;i<300;i++){
  const x=rnd(-86,86),z=rnd(-86,86);
  if(Math.abs(x%GRID)<7||Math.abs(z%GRID)<7)continue;
  const r=Math.random();
@@ -142,7 +177,7 @@ for(let i=0;i<105;i++){
 }
 // Peatones de baja poligonización: caminando, corriendo y bailando.
 const pedestrianColors=[0xe34d5b,0x347fc1,0xe1a83a,0x6d55b5,0x35a77b,0xe5e7e8,0xd477a6];
-for(let i=0;i<34;i++){
+for(let i=0;i<70;i++){
  let x=rnd(-82,82),z=rnd(-82,82);
  if(Math.abs(x%GRID)<7||Math.abs(z%GRID)<7){x+=Math.sign(x||1)*8;z+=Math.sign(z||1)*8}
  const p=addObject('pedestrian',x,z,.52,18,pedestrianColors[i%pedestrianColors.length]);
@@ -150,6 +185,28 @@ for(let i=0;i<34;i++){
  p.userData.walkSpeed=p.userData.motion==='run'?5:(p.userData.motion==='walk'?2:0);
  p.userData.direction=new THREE.Vector2(Math.random()-.5,Math.random()-.5).normalize();
  p.rotation.y=Math.atan2(p.userData.direction.x,p.userData.direction.y);
+}
+
+// Juguetes tradicionales: canicas, yoyos y trompos.
+const toyColors=[0xe34b73,0x35a9e8,0x43c58b,0xf2c84b,0x8b69ff];
+for(let i=0;i<280;i++){
+ const x=rnd(-86,86),z=rnd(-86,86);
+ if(Math.abs(x%GRID)<7||Math.abs(z%GRID)<7)continue;
+ const kind=i%3;
+ if(kind===0)addObject('marble',x,z,.23,4,toyColors[i%toyColors.length]);
+ else if(kind===1)addObject('yoyo',x,z,.48,9,toyColors[i%toyColors.length]);
+ else addObject('top',x,z,.48,10,toyColors[i%toyColors.length]);
+}
+// Artesanías de barro inspiradas en piezas tradicionales de los mercados guatemaltecos.
+const clayColors=[0x9b5738,0xb66b43,0x8c4933,0xc18455,0x70402f];
+for(let i=0;i<210;i++){
+ const x=rnd(-86,86),z=rnd(-86,86);
+ if(Math.abs(x%GRID)<7||Math.abs(z%GRID)<7)continue;
+ const kind=i%4;
+ if(kind===0)addObject('claypot',x,z,.62,14,clayColors[i%clayColors.length]);
+ else if(kind===1)addObject('claybowl',x,z,.55,12,clayColors[i%clayColors.length]);
+ else if(kind===2)addObject('clayjug',x,z,.62,15,clayColors[i%clayColors.length]);
+ else addObject('claycomal',x,z,.65,16,clayColors[i%clayColors.length]);
 }
 
 // Hole entities use a black disk, glowing rim and shadow well.
@@ -169,8 +226,8 @@ function makeHole(name,color,x,z,isPlayer=false){
 }
 function setHoleScale(h){const s=h.radius;h.group.scale.setScalar(s);h.disk.scale.set(1,1,1);h.rim.rotation.z=0;h.inner.rotation.z=0}
 const player=makeHole('TÚ',0x00eaff,0,0,true);
-const botNames=['NOVA','SHADOW','BOLT','PIXEL','TITÁN','ECLIPSE'];
-const botColors=[0xff4b78,0xffb52e,0x8b69ff,0x48e28b,0xff7045,0xe1e8ff];
+const botNames=['NOVA','SHADOW','BOLT','PIXEL','TITÁN','ECLIPSE','CHIBOLO'];
+const botColors=[0xff4b78,0xffb52e,0x8b69ff,0x48e28b,0xff7045,0xe1e8ff,0xff69d2];
 for(let i=0;i<botNames.length;i++)makeHole(botNames[i],botColors[i],rnd(-72,72),rnd(-72,72),false);
 
 // Floating name labels
