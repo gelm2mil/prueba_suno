@@ -13,8 +13,8 @@
 :root{
   --bg:#0b0b0f; --surface:#14141a; --surface2:#1d1d26; --surface3:#262632;
   --text:#efeaf6; --muted:#a49fb8; --line:#2a2a36;
-  --accent:#c9a8ff; --accent-ink:#180f2b;
-  --r:20px; --dur:230ms; --nav:64px;
+  --accent:#7ee08a; --accent-ink:#08210e;
+  --dur:230ms; --nav:64px;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;height:100%;background:var(--bg)}
@@ -26,19 +26,22 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 input{font:inherit}
 .hide{display:none!important}
 #app{height:100%;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top)}
-#topbar{display:flex;align-items:center;gap:10px;padding:14px 18px 8px}
-#topbar h1{font-size:22px;font-weight:800;letter-spacing:-.4px;margin:0;flex:1}
+#topbar{display:flex;align-items:center;gap:10px;padding:14px 18px 6px}
+#topbar h1{font-size:21px;font-weight:800;letter-spacing:-.4px;margin:0;flex:1}
 .iconbtn{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--surface2);flex:none}
 .iconbtn:active{background:var(--surface3)}
 .iconbtn svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+#srcBar{display:flex;gap:6px;padding:0 18px 8px}
+#srcBar button{flex:1;padding:9px 10px;border-radius:999px;background:var(--surface2);font-size:12.5px;font-weight:800;color:var(--muted)}
+#srcBar button.on{background:var(--accent);color:var(--accent-ink)}
 #main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:calc(var(--nav) + 84px + env(safe-area-inset-bottom))}
 .view{padding:0 14px 10px}
 .sect-h{display:flex;align-items:baseline;justify-content:space-between;margin:22px 4px 10px}
 .sect-h h2{font-size:16px;font-weight:800;margin:0}
 .sect-h button{font-size:12.5px;font-weight:700;color:var(--accent)}
 .hero{position:relative;border-radius:26px;overflow:hidden;padding:22px;background:
-  radial-gradient(120% 120% at 15% 0%,color-mix(in srgb,var(--accent) 42%,#000) 0%,#15121d 62%,#0d0c12 100%)}
-.hero h2{margin:0 0 4px;font-size:26px;line-height:1.1;font-weight:900;letter-spacing:-.8px}
+  radial-gradient(120% 120% at 15% 0%,color-mix(in srgb,var(--accent) 38%,#000) 0%,#15121d 62%,#0d0c12 100%)}
+.hero h2{margin:0 0 4px;font-size:25px;line-height:1.1;font-weight:900;letter-spacing:-.8px}
 .hero p{margin:0 0 18px;color:#d6cfe6;font-size:13.5px}
 .btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--accent-ink);font-weight:800;border-radius:999px;padding:13px 22px;font-size:14px}
 .btn:active{transform:scale(.97)}
@@ -66,11 +69,6 @@ input{font:inherit}
 .row .more{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:var(--muted);flex:none}
 .row .more svg{width:18px;height:18px;fill:currentColor}
 .sentinel{height:1px}
-.det-head{display:flex;flex-direction:column;align-items:center;text-align:center;padding:8px 6px 18px}
-.det-head .art{width:186px;height:186px;border-radius:24px;object-fit:cover;background:var(--surface2);box-shadow:0 18px 44px -14px #000}
-.det-head h2{margin:16px 0 4px;font-size:21px;font-weight:900;letter-spacing:-.5px}
-.det-head p{margin:0 0 16px;color:var(--muted);font-size:13px}
-.det-actions{display:flex;gap:10px}
 .search{display:flex;align-items:center;gap:10px;background:var(--surface2);border-radius:999px;padding:11px 16px;margin:4px 4px 12px}
 .search input{flex:1;background:none;border:0;outline:0;color:var(--text);font-size:15px;min-width:0}
 .search svg{width:18px;height:18px;stroke:var(--muted);fill:none;stroke-width:2;flex:none}
@@ -108,33 +106,36 @@ body.lowend .sheet .bg{filter:none;opacity:.3}
 .pl-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
 .pl-top .iconbtn{background:#ffffff14}
 .pl-top .cap{font-size:11.5px;font-weight:800;letter-spacing:1.3px;color:var(--muted);text-transform:uppercase}
-.pl-art{width:min(78vw,320px);aspect-ratio:1;border-radius:26px;object-fit:cover;margin:auto;background:var(--surface2);box-shadow:0 24px 60px -18px #000}
-.pl-info{margin-top:20px}
-.pl-info h2{font-size:22px;font-weight:900;letter-spacing:-.5px;margin:0 0 4px;line-height:1.2}
+.pl-art{width:min(74vw,300px);aspect-ratio:1;border-radius:26px;object-fit:cover;margin:auto;background:var(--surface2);box-shadow:0 24px 60px -18px #000}
+.pl-info{margin-top:18px}
+.pl-info h2{font-size:21px;font-weight:900;letter-spacing:-.5px;margin:0 0 4px;line-height:1.2}
 .pl-info p{color:var(--muted);font-size:13.5px;margin:0}
-.seek{margin:22px 0 4px}
+.seek{margin:20px 0 4px}
 .seek input{width:100%;-webkit-appearance:none;height:26px;background:none}
 .seek input::-webkit-slider-runnable-track{height:5px;border-radius:3px;background:#ffffff2e}
 .seek input::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:var(--accent);margin-top:-5px}
 .seek .times{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
-.controls{display:flex;align-items:center;justify-content:space-between;margin:16px 0 10px}
+.controls{display:flex;align-items:center;justify-content:space-between;margin:14px 0 8px}
 .controls button{width:52px;height:52px;display:grid;place-items:center;border-radius:50%;color:var(--text)}
 .controls svg{width:26px;height:26px;fill:currentColor;stroke:none}
 .controls .sm svg{width:22px;height:22px}
 .controls button.on{color:var(--accent)}
-.controls .play{width:74px;height:74px;background:var(--accent);color:var(--accent-ink)}
+.controls .play{width:72px;height:72px;background:var(--accent);color:var(--accent-ink)}
 .controls .play svg{width:32px;height:32px}
-.pl-extra{display:flex;justify-content:space-around;margin-top:auto;padding-top:10px;border-top:1px solid #ffffff12}
+.pl-extra{display:flex;justify-content:space-around;margin-top:auto;padding-top:8px;border-top:1px solid #ffffff12}
 .pl-extra button{display:flex;flex-direction:column;align-items:center;gap:5px;font-size:10.5px;color:var(--muted);font-weight:700;padding:10px 6px}
 .pl-extra button.on{color:var(--accent)}
 .pl-extra svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-#menu{position:fixed;left:0;right:0;bottom:0;z-index:70;background:var(--surface);border-radius:26px 26px 0 0;
-  padding:10px 14px calc(env(safe-area-inset-bottom) + 14px);transform:translateY(100%);transition:transform var(--dur)}
-#menu.open{transform:none}
-#menu .grab{width:40px;height:4px;border-radius:2px;background:#ffffff2b;margin:0 auto 12px}
+#menu,#queue{position:fixed;left:0;right:0;bottom:0;z-index:70;background:var(--surface);border-radius:26px 26px 0 0;
+  padding:10px 14px calc(env(safe-area-inset-bottom) + 14px);transform:translateY(100%);transition:transform var(--dur);max-height:76vh;overflow:auto}
+#menu.open,#queue.open{transform:none}
+.grab{width:40px;height:4px;border-radius:2px;background:#ffffff2b;margin:0 auto 12px}
 #menu .mi{display:flex;align-items:center;gap:14px;padding:15px 8px;font-size:14.5px;font-weight:600;border-bottom:1px solid var(--line)}
 #menu .mi:last-child{border:0}
 #menu .mi svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none;color:var(--muted)}
+#queue .qhead{display:flex;align-items:center;justify-content:space-between;padding:0 6px 10px}
+#queue .qhead h3{margin:0;font-size:16px;font-weight:800}
+#queue .qhead button{font-size:12.5px;font-weight:700;color:var(--accent)}
 #scrim{position:fixed;inset:0;background:#000a;z-index:65;opacity:0;pointer-events:none;transition:opacity var(--dur)}
 #scrim.on{opacity:1;pointer-events:auto}
 #toast{position:fixed;left:50%;bottom:calc(var(--nav) + 82px + env(safe-area-inset-bottom));transform:translate(-50%,20px);
@@ -143,6 +144,7 @@ body.lowend .sheet .bg{filter:none;opacity:.3}
 #toast.on{opacity:1;transform:translate(-50%,0)}
 .empty{text-align:center;color:var(--muted);padding:52px 24px;font-size:14px}
 .empty svg{width:52px;height:52px;stroke:var(--surface3);fill:none;stroke-width:1.4;margin:0 auto 14px}
+#ytHost{position:fixed;left:-9999px;top:0;width:2px;height:2px;overflow:hidden}
 @media(prefers-reduced-motion:reduce){:root{--dur:0ms}}
 </style>
 </head>
@@ -154,6 +156,10 @@ body.lowend .sheet .bg{filter:none;opacity:.3}
       <svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 3v6h-6"/></svg>
     </button>
   </header>
+  <div id="srcBar">
+    <button data-src="yt" class="on">YouTube</button>
+    <button data-src="local">MP3</button>
+  </div>
   <main id="main">
     <section class="view" id="view-home"></section>
     <section class="view hide" id="view-lib"></section>
@@ -206,14 +212,67 @@ body.lowend .sheet .bg{filter:none;opacity:.3}
 </div>
 
 <div id="menu"></div>
+<div id="queue"></div>
 <div id="toast"></div>
+<div id="ytHost"></div>
 <audio id="audio" preload="metadata"></audio>
 
 <script>
 "use strict";
-/* ============ FUENTES DE DATOS (ya configuradas) ============ */
 const REPO_RAW = "https://raw.githubusercontent.com/gelm2mil/prueba_suno/main/songs.json";
 const SOURCES = ["songs.json", REPO_RAW];
+const YT_PLAYLIST = "PLJGpqFTRWh98";
+
+/* Playlist oficial GT-GELM incrustada: [id, titulo, segundos] */
+const YT_SEED = [
+["_TshSDCSC9s","CENTINELA — LA MEMORIA DE PIEDRA",452],["m2FEt-kJpbk","GUATEMALA HASTA EL FIN",387],
+["QEh6P3u3TiQ","GUATEMALA, UNA TIERRA INESPERADA",323],["d9Kja2kazj0","SIGLO XIX — EL TIEMPO DEJÓ SU NOMBRE",453],
+["yLKzMMJQHKE","NUEVA GENERACIÓN MAYA",377],["Z4dow6VfNGs","GUATEMALA ENTRE DOS MARES",300],
+["Kq5gB8hhqTQ","BAJO EL CIELO DE LA PATRIA Y EL ABISMO",409],["RiQAMX1ioF8","LOS QUE GUATEMALA GUARDA",331],
+["OXDE1XzhFSo","LA CIVILIZACIÓN QUE LA SELVA GUARDÓ",370],["nI_7lPmksbM","LA VOZ XINKA",205],
+["-fTOT5KgU98","GUATEMALA: UN PAÍS DE MUCHOS MUNDOS",360],["Khc5hltavng","GUATEMALA TOCA EL CIELO",392],
+["WXSzssxJJAA","TIKAL, LA CIUDAD SOBRE LA SELVA",392],["2gZAFvAX8SM","GUATEMALA NUNCA SE RINDE",329],
+["fK9qZ_Epjag","DONDE EL LAGO ENCUENTRA AL CARIBE",319],["Kb53INDck9Q","LA VOZ GARÍFUNA",260],
+["vc2pxTy1Tu8","LA VOZ K'ICHE'",201],["Cvb7RUIhNuI","EL DESIERTO QUE GUATEMALA ESCONDE",481],
+["8Yda70VkYXI","LA HISTORIA SIGUE EN NUESTRAS MANOS",320],["xFJMsL5avrU","15 DE SEPTIEMBRE | GUATEMALA LIBRE",438],
+["DPYkVEePqHU","UNA ANTORCHA EN LA MANO",450],["0xMEd7EzNuE","GUATE RUGE",311],
+["OixsM6RNkgA","GUATEMALA, TIERRA DE VOLCANES",466],["wTegAw2Aylo","Tecún Umán – Capítulo II | Tierra de Frontera",459],
+["RFmUG5yZS2c","LA ASUNCIÓN ESTÁ DE FIESTA",314],["NemkRGN3-_E","Suchiate – Capítulo I | El Río de las Flores",370],
+["_XeLOdAbvkY","Alotenango – Capítulo I | El Valle Entre Gigantes",433],["tp2oS_bz04c","Amatitlán – Capítulo IV | El Lago Nos Llama",437],
+["aZS2nYXUOck","Don Chente y los Caminos de Guatemala",299],["uXwPds4mZnY","Al Volante por la Vida",264],
+["zXnfqIWbV7g","Amatitlán – Capítulo II | Cuando la Vida Despertó",324],["wMfNG2tPeCM","Amatitlán – Capítulo III | Donde un Pueblo Encontró su Hogar",399],
+["g78q07ArshQ","Entre Marimba y Tradición | Feria de Chimaltenango",310],["wKcKsIGnqwU","Amatitlán – Capítulo I | El Lago Sagrado",311],
+["QmY_KamYxjw","Aprendiendo de Nuestra Bella Guatemala | Kaqchikel",237],["ZqO4ZolK9Wo","ALTA VERAPAZ | Valle del Polochic",326],
+["hiO7b71tp7c","DE LA CUMBRE HASTA TULATE | Rutas de Guatemala",354],["toTt0oZzRTU","GUATEMALA | 22 Departamentos, 25 Idiomas",318],
+["agWaQUy_nVs","CHINAUTLA | El Barro que Guarda la Historia",306],["58NnOM08xqA","Tecún Umán – Capítulo V | La Leyenda Sigue",274],
+["z-f3F14Ducc","Tecún Umán – Capítulo IV | El Secreto del Bosque",310],["-XpRkskINcU","Tecún Umán – Capítulo III | El Quetzal se Tiñó de Rojo",303],
+["s_hl2aqf4mY","TECÚN UMÁN | La Guerra Comienza",279],["t4pLZX_aDNo","Tecún Umán | El Guerrero de Obsidiana",255],
+["rYenMvVqJ00","El Quetzal | La Leyenda del Ave Sagrada",232],["UJomxep_Vxk","Recordando Nuestro Rock Nacional",243],
+["-ncq4csNW98","El Renacer de Hunahpú e Ixbalanqué",200],["IH44MaDKA9Y","EL SOLDADO DE GUATEMALA | Himno al Ejército",246],
+["p-s9oECTAvg","EL VALLE DE LOS GIGANTES: El Despertar del Suelo Natal",315],["yU1ucJZtoyQ","BELICE | Raíces de una Misma Memoria",319],
+["jk-cqfpWLKw","POZO VIVO | El Misterio que Responde al Sonido",381],["GOhQKQ8ii_A","SAMABAJ | La Ciudad Perdida Bajo Atitlán",320],
+["3JuSCRfj2vE","ATITLÁN | Donde el Cielo y Xibalbá se Tocaban",270],["5cWW4zM8zZ0","MADRE VIEJA | El Misterio de los Rieles",418],
+["9XSf1ly87ng","NAJ TÚNICH | El Descenso al Xibalbá",402],["XE3yu4e4WDQ","FELIZ DÍA DEL PADRE | Héroes del Silencio",362],
+["9Hk9lWViU8A","¿CONOCÉS TU GUATEMALA? | Un Viaje por Nuestra Tierra",262],["5PjyycRWl2E","HUEHUETENANGO | Tierra de los Viejos Sabios",314],
+["lkyUaafAjNw","LOS GUARDIANES DE LOS CUCHUMATANES",305],["_R8hwA8NxsQ","KAIBIL BALAM | El Jaguar de Zaculeu",285],
+["pBFNIGD2IUU","HUEHUETENANGO | Tierra de Zaculeu y Cuchumatanes",292],["6-KMaPCcFhI","SAQKOROWACH | El Ave de los Ocho Pueblos",286],
+["ubx2QhakDWg","CH'UPIL | La Luciérnaga de Mi Pueblo",254],["eBcWMSE_AeQ","SOMPOPOS Y BARRILETES | Recuerdos de Guatemala",291],
+["JXWr0k6ilM8","EL MAPA DE ORO | Los 21 Municipios del Quiché",311],["hAkZF_Np3YM","Q'UMARKAJ | La Caída del Reino K'iche'",293],
+["O0yuFh_jNa8","VOCES DEL QUICHÉ | Herederos del Popol Vuh",307],["DCNaeVSvDxY","LOS CANTOS DE MI ESCUELA",366],
+["8XubWU507wk","QUETZALTENANGO ETERNO | El Canto de Xelajú",301],["kmNoE6LnAAs","EL GAVILÁN DE IZABAL | El Tren Frutero",250],
+["4I3dtGM3nyw","ORIENTE QUERIDO | La Ruta del Setenta y Cinco",299],["enBDxSnJL8k","LA LEYENDA DEL 76 | Tierra de Belice",260],
+["zeZpBCThyHg","RI AQ'OMANEL NAWAL | El Sanador del Espíritu",305],["sAlk1Zyx7DM","SOBRE EL BOSQUE VOY | Crónica de un Patrullero",273],
+["ivAgyJ6i9FM","EL IXCÁN INDOMABLE | Éxodo, Regreso y Franja",246],["oYGF6Y9PNSw","LOS PIONEROS DEL IXCÁN | La Selva Virgen",250],
+["9lCUqcCVOBc","LAS QUINCE JORNADAS DEL VIEJO (Parte 2)",287],["UY6uPxDTYjo","LAS QUINCE JORNADAS DEL VIEJO (Parte 1)",292],
+["bW_fsg2gqwQ","EL ZUMBIDO DEL RIEL | Ferrocarril del Norte",281],["FDZK6Did5MI","CHIMALTENANGO CIUDAD DE LOS ESCUDOS",316],
+["-CWKhsdqSf4","BASTIONES DE LA ETERNIDAD | Guardianes de la Historia",338],["gcqOmtz5wFQ","LAS LUCES DE LA SIERRA II | El Encanto del Paletón",345],
+["vVM153LQ-Go","LAS LUCES DE LA SIERRA I",321],["Y7Hk89cqP4Y","LAS CUATRO CAPITALES DE GUATEMALA",351],
+["9eVQgbJbiXk","ANTIGUA DE MI VIDA",293],["PEabJy52K1A","EL CANTO DE LOS BOHEMIOS",247],
+["r2sdVY0gNmM","EL CALLEJÓN DEL MISTERIO",338],["BteLS0n3Ukk","Como Me Lo Contaron",272],
+["Rs4_tBsIjWY","Así Era el Caminar en Mi Tierra",255],["eBWVJu84VSw","Historia de Mi Tierra Bella Guatemala",210],
+["F3NznREqluI","El Valor de un Sueño",310],["QIT5jlnmgLc","Recorrido del camino del ancestro",272],
+["hX73PBMP93U","GUATEMALA EN 22 CORAZONES",348],["AORmPUkGApU","Historia de Mi Tierra | Recordando Nuestro Rock",243]
+];
 
 const LS = {
   get(k, d){ try{ const v = localStorage.getItem("gl_"+k); return v===null?d:JSON.parse(v) }catch(e){ return d } },
@@ -224,13 +283,15 @@ const $ = s => document.querySelector(s);
 const audio = $("#audio");
 
 const state = {
-  tracks: [], byId: new Map(), cats: [],
+  src: LS.get("src", "yt"),
+  tracks: [], byId: new Map(),
+  yt: [], ytById: new Map(),
   queue: [], qi: -1,
   shuffle: LS.get("shuffle", false), repeat: LS.get("repeat", "off"),
   favs: new Set(LS.get("favs", [])),
   recents: LS.get("recents", []),
   playlists: LS.get("playlists", {}),
-  libFilter: "all", view: "home", menuTarget: null, sleepTimer: null
+  libFilter: "all", view: "home", sleepTimer: null
 };
 
 let toastT;
@@ -238,33 +299,31 @@ function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("on"); 
 const fmt = s => { if(!isFinite(s)||s<0) return "0:00"; return Math.floor(s/60)+":"+String(Math.floor(s%60)).padStart(2,"0"); };
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const hash = s => { let h=5381; for(let i=0;i<s.length;i++) h=((h<<5)+h+s.charCodeAt(i))|0; return Math.abs(h).toString(36); };
-
-/* ---- portadas generadas por categoría (sin imágenes, sin datos) ---- */
-const PAL = [["#7c4dff","#ff4d94"],["#00b8d4","#2979ff"],["#ff8f00","#ff5252"],["#00c853","#00bfa5"],["#d500f9","#651fff"],["#ff6d00","#ffd600"]];
+const PAL = [["#7ee08a","#2bb673"],["#7c4dff","#ff4d94"],["#00b8d4","#2979ff"],["#ff8f00","#ff5252"],["#d500f9","#651fff"]];
 const COVERS = new Map();
-function coverFor(cat){
-  const key = cat || "?";
-  if(COVERS.has(key)) return COVERS.get(key);
-  const p = PAL[parseInt(hash(key),36) % PAL.length];
-  const letter = (key === "pmt" ? "P" : key.slice(0,1)).toUpperCase();
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${p[0]}"/><stop offset="1" stop-color="${p[1]}"/></linearGradient></defs><rect width="300" height="300" fill="url(#g)"/><circle cx="250" cy="55" r="125" fill="#ffffff1a"/><circle cx="55" cy="265" r="95" fill="#00000026"/><text x="150" y="200" font-family="system-ui,sans-serif" font-size="150" font-weight="800" fill="#ffffffd0" text-anchor="middle">${letter}</text></svg>`;
-  const uri = "data:image/svg+xml;utf8," + encodeURIComponent(svg);
-  COVERS.set(key, uri);
-  return uri;
+function coverFor(seed){
+  const k = String(seed || "x");
+  if(COVERS.has(k)) return COVERS.get(k);
+  const p = PAL[parseInt(hash(k),36) % PAL.length];
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${p[0]}"/><stop offset="1" stop-color="${p[1]}"/></linearGradient></defs><rect width="300" height="300" fill="url(#g)"/><circle cx="250" cy="55" r="125" fill="#ffffff1a"/><circle cx="55" cy="265" r="95" fill="#00000026"/></svg>`;
+  const u = "data:image/svg+xml;utf8," + encodeURIComponent(svg);
+  COVERS.set(k, u); return u;
 }
-const LABEL = c => ({cultura:"Cultura", historias:"Historias", pmt:"PMT"}[c] || (c ? c[0].toUpperCase()+c.slice(1) : "General"));
+const lookup = id => state.byId.get(id) || state.ytById.get(id);
+const activeList = () => state.src === "yt" ? state.yt : state.tracks;
 
 (function device(){
   const mem = navigator.deviceMemory || 4, cpu = navigator.hardwareConcurrency || 4;
   if(mem <= 3 || cpu <= 4) document.body.classList.add("lowend");
 })();
 
-/* ---- audio ---- */
+/* ---------- audio local ---------- */
+let seekDrag = false;
 audio.addEventListener("timeupdate", () => {
   const d = audio.duration || 0;
+  if(!seekDrag) $("#pSeek").value = d ? Math.round(audio.currentTime/d*1000) : 0;
   $("#pCur").textContent = fmt(audio.currentTime);
   $("#miniBar").style.width = d ? (audio.currentTime/d*100)+"%" : "0%";
-  if(!seekDrag) $("#pSeek").value = d ? Math.round(audio.currentTime/d*1000) : 0;
   if(Math.floor(audio.currentTime) % 5 === 0) LS.set("pos", { id: cur()?.id, t: audio.currentTime });
 });
 audio.addEventListener("loadedmetadata", () => $("#pDur").textContent = fmt(audio.duration));
@@ -279,10 +338,64 @@ function setPlayIcon(on){
 }
 const cur = () => state.queue[state.qi] || null;
 
-/* ---- lectura y normalización del JSON ---- */
+/* ---------- YouTube (IFrame API) ---------- */
+let ytPlayer = null, ytReadyP = null, ytTick = null;
+function ytLoad(){
+  if(ytReadyP) return ytReadyP;
+  ytReadyP = new Promise((res, rej) => {
+    const s = document.createElement("script");
+    s.src = "https://www.youtube.com/iframe_api";
+    s.onerror = rej;
+    document.head.appendChild(s);
+    window.onYouTubeIframeAPIReady = () => {
+      ytPlayer = new YT.Player("ytHost", {
+        width: 2, height: 2,
+        playerVars: { autoplay: 1, controls: 0, playsinline: 1, rel: 0, modestbranding: 1, origin: location.origin },
+        events: {
+          onReady: () => res(),
+          onStateChange: e => {
+            if(e.data === 1){ setPlayIcon(true); updateSession(); ytTitle(); ytStartTick(); }
+            if(e.data === 2){ setPlayIcon(false); ytStopTick(); }
+            if(e.data === 0) next(true);
+          },
+          onError: () => setTimeout(()=>next(true), 800)
+        }
+      });
+    };
+  });
+  return ytReadyP;
+}
+function ytTitle(){
+  try{
+    const d = ytPlayer.getVideoData();
+    if(d && d.title) { $("#pT").textContent = d.title; $("#miniT").textContent = d.title; }
+  }catch(e){}
+}
+function ytStartTick(){
+  ytStopTick();
+  ytTick = setInterval(() => {
+    try{
+      const d = ytPlayer.getDuration(), t = ytPlayer.getCurrentTime();
+      if(!seekDrag && d) $("#pSeek").value = Math.round(t/d*1000);
+      $("#pCur").textContent = fmt(t);
+      $("#pDur").textContent = fmt(d);
+      $("#miniBar").style.width = d ? (t/d*100)+"%" : "0%";
+      if(Math.floor(t) % 5 === 0) LS.set("pos", { id: cur()?.id, t });
+    }catch(e){}
+  }, 900);
+}
+function ytStopTick(){ if(ytTick) clearInterval(ytTick); ytTick = null; }
+async function ytPlay(t){
+  try{
+    await ytLoad();
+    ytPlayer.loadVideoById(t.id);
+  }catch(e){ toast("YouTube no cargó. Revisa la conexión."); }
+}
+function ytPause(){ try{ ytPlayer?.pauseVideo() }catch(e){} }
+
+/* ---------- carga del JSON local ---------- */
 function normalize(data, base){
-  const arr = Array.isArray(data) ? data
-    : (data.songs || data.tracks || data.music || data.data || data.items || []);
+  const arr = Array.isArray(data) ? data : (data.songs || data.tracks || data.music || data.data || []);
   if(!Array.isArray(arr)) return [];
   const out = [], seen = new Set();
   arr.forEach(raw => {
@@ -290,103 +403,86 @@ function normalize(data, base){
     const file = raw.file || "";
     let url = raw.url || raw.src || raw.path || raw.audio || file;
     if(!url) return;
-    if(!/^(https?:|data:|blob:)/.test(url)) { try{ url = new URL(url, base).href }catch(e){} }
-    const id = String(raw.id ?? hash(url));
+    if(!/^(https?:|data:|blob:)/.test(url)){ try{ url = new URL(url, base).href }catch(e){} }
+    const id = "L" + String(raw.id ?? hash(url));
     if(seen.has(id)) return; seen.add(id);
-    const cat = String(raw.category || raw.album || "").toLowerCase();
     let title = String(raw.title || raw.name || file || "Sin título");
     let num = "";
     const m = title.match(/^(\d{1,4})[\s._\-–]+(.+)$/);
     if(m){ num = m[1]; title = m[2]; }
-    out.push({ id, num, title, cat, artist: "GELM", album: LABEL(cat), cover: coverFor(cat), url, dur: 0 });
+    out.push({ id, src: "local", num, title, artist: "GELM", album: "Colección local",
+      cover: coverFor(id), url, dur: Number(raw.duration || 0) || 0 });
   });
   return out.sort((a,b) => (parseInt(a.num,10)||9999) - (parseInt(b.num,10)||9999));
 }
 
-async function loadLibrary(silent){
+async function loadLocal(silent){
   if(!silent) toast("Cargando biblioteca…");
-  let data = null, usedBase = location.href;
-  for(const src of SOURCES){
+  let data = null, base = location.href;
+  for(const s of SOURCES){
     try{
-      const abs = new URL(src, location.href).href;
-      const res = await fetch(abs, { cache: "no-cache" });
-      if(!res.ok) continue;
-      data = await res.json();
-      usedBase = abs;
-      break;
+      const abs = new URL(s, location.href).href;
+      const r = await fetch(abs, { cache: "no-cache" });
+      if(!r.ok) continue;
+      data = await r.json(); base = abs; break;
     }catch(e){}
   }
   if(!data){
-    const cache = LS.get("lib", null);
-    if(cache?.length){ state.tracks = cache; hydrate(); renderAll(); toast("Sin conexión: copia local"); }
-    else renderEmpty("No se pudo leer songs.json. Revisa la conexión.");
+    const c = LS.get("lib", null);
+    if(c?.length){ state.tracks = c; state.byId = new Map(c.map(t=>[t.id,t])); renderAll(); }
     return;
   }
-  const tracks = normalize(data, usedBase);
-  if(!tracks.length){ renderEmpty("songs.json no tiene pistas válidas."); return; }
-  state.tracks = tracks;
-  LS.set("lib", tracks);
-  hydrate();
+  state.tracks = normalize(data, base);
+  state.byId = new Map(state.tracks.map(t=>[t.id,t]));
+  LS.set("lib", state.tracks);
   renderAll();
-  if(!silent) toast(tracks.length + " pistas cargadas");
+  if(!silent) toast(state.tracks.length + " pistas cargadas");
 }
 
-function hydrate(){
-  state.byId = new Map(state.tracks.map(t => [t.id, t]));
-  state.cats = [...new Set(state.tracks.map(t => t.cat))].filter(Boolean);
+function loadYt(){
+  state.yt = YT_SEED.map(([id, title, dur]) => ({
+    id: "Y" + id, vid: id, src: "yt", num: "", title, artist: "GT-GELM", album: "YouTube",
+    cover: "https://i.ytimg.com/vi/" + id + "/mqdefault.jpg", url: "", dur
+  }));
+  state.ytById = new Map(state.yt.map(t=>[t.id,t]));
 }
 
-function renderEmpty(msg){
-  $("#view-home").innerHTML = `<div class="empty">
-    <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-    <p>${esc(msg)}</p></div>`;
-}
-
-/* ---- render ---- */
+/* ---------- render ---------- */
 function renderAll(){ renderHome(); renderLib(); renderPlaylists(); renderSettings(); }
 
 function renderHome(){
   const v = $("#view-home");
-  const recents = state.recents.map(id => state.byId.get(id)).filter(Boolean).slice(0,12);
-  const favs = [...state.favs].map(id => state.byId.get(id)).filter(Boolean).slice(0,12);
+  const list = activeList();
+  const recents = state.recents.map(lookup).filter(Boolean).slice(0,12);
+  const favs = [...state.favs].map(lookup).filter(Boolean).slice(0,12);
   const last = LS.get("pos", null);
-  const lastT = last && state.byId.get(last.id);
+  const lastT = last && lookup(last.id);
 
   v.innerHTML = `
     <div class="hero">
-      <h2>GELM<br>Colección completa</h2>
-      <p>${state.tracks.length} audios · ${state.cats.length} categorías</p>
-      <button class="btn" id="heroShuffle">
-        <svg viewBox="0 0 24 24"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
-        Aleatorio
-      </button>
-      ${lastT ? `<button class="btn ghost" id="heroResume" style="margin-left:8px">Continuar</button>` : ""}
+      <h2>GT-GELM</h2>
+      <p>${list.length} pistas · ${state.src === "yt" ? "YouTube" : "MP3 local"}</p>
+      <button class="btn" id="heroPlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Reproducir todo</button>
+      <button class="btn ghost" id="heroShuffle" style="margin-left:8px">Aleatorio</button>
+      ${lastT ? `<button class="btn ghost" id="heroResume" style="margin-top:10px">Continuar</button>` : ""}
     </div>
     ${recents.length ? `<div class="sect-h"><h2>Escuchado hace poco</h2></div>
-      <div class="carousel" data-carousel="recent">${recents.map(cardHTML).join("")}</div>` : ""}
+      <div class="carousel" data-carousel>${recents.map(cardHTML).join("")}</div>` : ""}
     ${favs.length ? `<div class="sect-h"><h2>Favoritos</h2></div>
-      <div class="carousel" data-carousel="favs">${favs.map(cardHTML).join("")}</div>` : ""}
-    <div class="sect-h"><h2>Categorías</h2></div>
-    <div class="carousel">${state.cats.map(c => {
-      const n = state.tracks.filter(t => t.cat === c).length;
-      return `<button class="card" data-cat="${esc(c)}">
-        <img class="art" src="${coverFor(c)}" alt="">
-        <div class="t">${esc(LABEL(c))}</div><div class="s">${n} pistas</div>
-      </button>`;
-    }).join("")}</div>`;
+      <div class="carousel" data-carousel>${favs.map(cardHTML).join("")}</div>` : ""}
+    <div class="sect-h"><h2>${state.src === "yt" ? "Playlist GT-GELM" : "Colección local"}</h2>
+      <button id="seeAll">Ver todo</button></div>
+    <div class="carousel" data-carousel>${list.slice(0,12).map(cardHTML).join("")}</div>`;
 
-  $("#heroShuffle").onclick = () => { if(state.tracks.length) playList(state.tracks.slice().sort(()=>Math.random()-.5), 0); };
-  if(lastT) $("#heroResume").onclick = () => {
-    state.queue = [lastT]; state.qi = 0; loadCurrent(false); audio.currentTime = last.t || 0; openPlayer();
-  };
-  v.querySelectorAll("[data-carousel]").forEach(c => {
-    c.onclick = e => {
-      const b = e.target.closest("[data-id]"); if(!b) return;
-      const ids = [...c.querySelectorAll("[data-id]")].map(x => x.dataset.id);
-      playList(ids.map(i => state.byId.get(i)).filter(Boolean), ids.indexOf(b.dataset.id));
-    };
+  $("#heroPlay").onclick = () => list.length && playList(list, 0);
+  $("#heroShuffle").onclick = () => list.length && playList(list.slice().sort(()=>Math.random()-.5), 0);
+  if(lastT) $("#heroResume").onclick = () => { state.queue=[lastT]; state.qi=0; startCurrent(false); audio.currentTime = last.t||0; openPlayer(); };
+  $("#seeAll").onclick = () => { state.libFilter = "all"; renderLib(); go("lib"); };
+  v.querySelectorAll("[data-carousel]").forEach(c => c.onclick = e => {
+    const b = e.target.closest("[data-id]"); if(!b) return;
+    const ids = [...c.querySelectorAll("[data-id]")].map(x=>x.dataset.id);
+    playList(ids.map(lookup).filter(Boolean), ids.indexOf(b.dataset.id));
   });
-  v.querySelectorAll("[data-cat]").forEach(b => b.onclick = () => openDetail("cat", b.dataset.cat));
 }
 
 const cardHTML = t => `<button class="card" data-id="${t.id}">
@@ -397,22 +493,20 @@ const cardHTML = t => `<button class="card" data-id="${t.id}">
 function renderLib(){
   const v = $("#view-lib");
   const q = (v.dataset.q || "").trim().toLowerCase();
-  let list = state.tracks;
+  let list = activeList();
   if(state.libFilter === "favs") list = list.filter(t => state.favs.has(t.id));
-  else if(state.libFilter === "recents") list = state.recents.map(id => state.byId.get(id)).filter(Boolean);
-  else if(state.libFilter !== "all") list = list.filter(t => t.cat === state.libFilter);
-  if(q) list = list.filter(t => (t.title + " " + t.album).toLowerCase().includes(q));
+  else if(state.libFilter === "recents") list = state.recents.map(lookup).filter(Boolean);
+  if(q) list = list.filter(t => (t.title + " " + t.artist).toLowerCase().includes(q));
 
   v.innerHTML = `
     <div class="search">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="q" type="search" placeholder="Buscar audio" value="${esc(v.dataset.q || "")}">
+      <input id="q" type="search" placeholder="Buscar" value="${esc(v.dataset.q || "")}">
     </div>
     <div class="chips">
       <button class="chip ${state.libFilter==="all"?"on":""}" data-f="all">Todo</button>
       <button class="chip ${state.libFilter==="favs"?"on":""}" data-f="favs">Favoritos</button>
       <button class="chip ${state.libFilter==="recents"?"on":""}" data-f="recents">Recientes</button>
-      ${state.cats.map(c => `<button class="chip ${state.libFilter===c?"on":""}" data-f="${esc(c)}">${esc(LABEL(c))}</button>`).join("")}
     </div>
     <div class="list" id="libList"></div>`;
 
@@ -424,31 +518,34 @@ function renderLib(){
   }, 200); };
 
   const cont = $("#libList");
-  if(!list.length){ cont.innerHTML = `<div class="empty">Nada por aquí todavía.</div>`; return; }
+  if(!list.length){ cont.innerHTML = `<div class="empty">Nada por aquí.</div>`; return; }
   virtualList(cont, list, rowHTML, playList);
 }
 
 const rowHTML = t => `<div class="row ${cur()?.id === t.id ? "playing" : ""}" data-id="${t.id}">
-  <span class="num">${esc(t.num || "")}</span>
+  <img class="art" src="${t.cover}" alt="" loading="lazy" decoding="async">
   <div class="meta"><div class="t">${esc(t.title)}</div><div class="s">${esc(t.album)}</div></div>
   <button class="more" data-menu="${t.id}"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button>
 </div>`;
 
+/* FIX: insertAdjacentHTML sobre el centinela, no sobre un DocumentFragment */
 function virtualList(container, items, rowFn, onPlay){
   if(container._io) container._io.disconnect();
   container.innerHTML = "";
   let i = 0;
   const CHUNK = document.body.classList.contains("lowend") ? 30 : 55;
-  const sentinel = document.createElement("div"); sentinel.className = "sentinel";
+  const sentinel = document.createElement("div");
+  sentinel.className = "sentinel";
   const add = () => {
-    const frag = document.createDocumentFragment();
     const end = Math.min(i + CHUNK, items.length);
-    for(; i < end; i++) frag.insertAdjacentHTML("beforeend", rowFn(items[i]));
-    container.insertBefore(frag, sentinel);
+    let html = "";
+    for(; i < end; i++) html += rowFn(items[i]);
+    sentinel.insertAdjacentHTML("beforebegin", html);
   };
   const io = new IntersectionObserver(es => { if(es[0].isIntersecting) add(); }, { root: $("#main"), rootMargin: "700px" });
   container._io = io;
-  container.appendChild(sentinel); add(); io.observe(sentinel);
+  container.appendChild(sentinel);
+  add(); io.observe(sentinel);
 
   container.onclick = e => {
     const m = e.target.closest("[data-menu]");
@@ -464,9 +561,9 @@ function renderPlaylists(){
   const names = Object.keys(state.playlists);
   v.innerHTML = `<div class="sect-h"><h2>Playlists</h2><button id="newPl">Nueva</button></div>
     ${names.length ? names.map(n => {
-      const first = state.playlists[n].map(id => state.byId.get(id)).find(Boolean);
+      const first = state.playlists[n].map(lookup).find(Boolean);
       return `<button class="row" data-pl="${esc(n)}">
-        <img class="art" src="${first?.cover || coverFor("lista")}" alt="" loading="lazy">
+        <img class="art" src="${first?.cover || coverFor(n)}" alt="" loading="lazy">
         <div class="meta"><div class="t">${esc(n)}</div><div class="s">${state.playlists[n].length} pistas</div></div>
       </button>`;
     }).join("") : `<div class="empty"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><p>Crea tu primera playlist.</p></div>`}`;
@@ -475,26 +572,22 @@ function renderPlaylists(){
     state.playlists[n] = state.playlists[n] || [];
     LS.set("playlists", state.playlists); renderPlaylists(); toast("Playlist creada");
   };
-  v.querySelectorAll("[data-pl]").forEach(b => b.onclick = () => openDetail("playlist", b.dataset.pl));
+  v.querySelectorAll("[data-pl]").forEach(b => b.onclick = () => openDetail(b.dataset.pl));
 }
 
-function openDetail(kind, key){
+function openDetail(name){
   const v = $("#view-detail");
-  let list = [], title = key, sub = "";
-  if(kind === "cat"){ list = state.tracks.filter(t => t.cat === key); title = LABEL(key); sub = list.length + " pistas"; }
-  if(kind === "playlist"){ list = (state.playlists[key] || []).map(id => state.byId.get(id)).filter(Boolean); sub = list.length + " pistas"; }
-
+  const list = (state.playlists[name] || []).map(lookup).filter(Boolean);
   v.innerHTML = `
     <div class="det-head">
-      <img class="art" src="${list[0]?.cover || coverFor(key)}" alt="">
-      <h2>${esc(title)}</h2><p>${esc(sub)}</p>
+      <img class="art" src="${list[0]?.cover || coverFor(name)}" alt="">
+      <h2>${esc(name)}</h2><p>${list.length} pistas</p>
       <div class="det-actions">
         <button class="btn" id="dPlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Reproducir</button>
         <button class="btn ghost" id="dShuffle">Aleatorio</button>
       </div>
     </div>
     <div class="list" id="detList"></div>`;
-
   $("#dPlay").onclick = () => playList(list, 0);
   $("#dShuffle").onclick = () => playList(list.slice().sort(()=>Math.random()-.5), 0);
   virtualList($("#detList"), list, rowHTML, playList);
@@ -505,17 +598,15 @@ function renderSettings(){
   $("#view-set").innerHTML = `
     <div class="set-item"><div><div class="lab">Animaciones</div><div class="sub">Desactívalas en equipos lentos</div></div>
       <div class="switch ${document.body.classList.contains("lowend")?"on":""}" id="swAnim"></div></div>
-    <div class="set-item"><div><div class="lab">Guardar audio offline</div><div class="sub">Cachea lo que escuchas</div></div>
+    <div class="set-item"><div><div class="lab">Guardar MP3 offline</div><div class="sub">Cachea lo que escuchas</div></div>
       <div class="switch ${LS.get("offline", true)?"on":""}" id="swOff"></div></div>
     <div class="set-item"><div class="lab">Borrar favoritos, playlists e historial</div>
       <button class="btn ghost" id="wipe" style="padding:9px 16px;font-size:13px">Borrar</button></div>
     <div class="set-item" style="flex-direction:column;align-items:stretch;gap:8px">
-      <div class="lab">Fuente de datos</div>
-      <div class="sub">${esc(SOURCES[0])} → respaldo raw del repo</div>
-    </div>
-    <p style="color:var(--muted);font-size:12px;padding:18px 4px;line-height:1.6">
-      Instala desde el menú del navegador → "Añadir a pantalla de inicio" para usarlo a pantalla completa.
-    </p>`;
+      <div class="lab">Playlist de YouTube</div>
+      <div class="sub">Actual: ${esc(YT_PLAYLIST)} (GT-GELM)</div>
+      <div class="sub">Los audios MP3 salen de songs.json del repo.</div>
+    </div>`;
   $("#swAnim").onclick = e => { e.currentTarget.classList.toggle("on"); document.body.classList.toggle("lowend", !e.currentTarget.classList.contains("on")); };
   $("#swOff").onclick = e => {
     const on = e.currentTarget.classList.toggle("on"); LS.set("offline", on);
@@ -529,7 +620,7 @@ function renderSettings(){
   };
 }
 
-/* ---- navegación ---- */
+/* ---------- navegación ---------- */
 const TITLES = { home:"GELM · Música", lib:"Biblioteca", pl:"Playlists", set:"Ajustes", detail:"" };
 function go(view){
   state.view = view;
@@ -542,19 +633,41 @@ document.querySelectorAll("#nav button").forEach(b => b.onclick = () => {
   if(b.dataset.go === "lib"){ state.libFilter = "all"; renderLib(); }
   go(b.dataset.go);
 });
-$("#btnReload").onclick = () => loadLibrary();
+document.querySelectorAll("#srcBar button").forEach(b => b.onclick = () => setSrc(b.dataset.src));
+$("#btnReload").onclick = () => { loadYt(); loadLocal(); toast("Actualizado"); };
 
-/* ---- reproducción ---- */
+function setSrc(s){
+  if(state.src === s) return;
+  stopAll();
+  state.src = s; LS.set("src", s);
+  document.querySelectorAll("#srcBar button").forEach(b => b.classList.toggle("on", b.dataset.src === s));
+  $("#view-lib").dataset.q = "";
+  state.libFilter = "all";
+  renderAll();
+  go("home");
+}
+
+/* ---------- reproducción ---------- */
+function stopAll(){
+  audio.pause();
+  ytPause();
+  ytStopTick();
+  setPlayIcon(false);
+}
+
 function playList(list, index){
   if(!list || !list.length) return;
   state.queue = list.slice(); state.qi = index || 0;
-  loadCurrent(true); openPlayer();
+  startCurrent(true); openPlayer();
 }
-function playTrack(t){ const i = state.tracks.findIndex(x => x.id === t.id); playList(state.tracks, i); }
+function playTrack(t){
+  const l = activeList();
+  const i = l.findIndex(x => x.id === t.id);
+  playList(i >= 0 ? l : [t], i >= 0 ? i : 0);
+}
 
-function loadCurrent(autoplay){
+function startCurrent(autoplay){
   const t = cur(); if(!t) return;
-  audio.src = t.url;
   $("#pT").textContent = t.title;
   $("#pS").textContent = t.artist + " · " + t.album;
   $("#pArt").src = t.cover;
@@ -564,29 +677,49 @@ function loadCurrent(autoplay){
   $("#miniArt").src = t.cover;
   $("#mini").classList.remove("hide");
   $("#pFav").classList.toggle("on", state.favs.has(t.id));
-  $("#pDur").textContent = "0:00";
-  const p = PAL[parseInt(hash(t.cat || "x"),36) % PAL.length];
-  document.documentElement.style.setProperty("--accent", p[0]);
+  $("#pDur").textContent = t.dur ? fmt(t.dur) : "0:00";
+  $("#pCur").textContent = "0:00";
+  $("#pSeek").value = 0;
+  document.documentElement.style.setProperty("--accent", PAL[parseInt(hash(t.id),36)%PAL.length][0]);
   state.recents = [t.id, ...state.recents.filter(i => i !== t.id)].slice(0,60);
   LS.set("recents", state.recents);
-  if(autoplay) audio.play().catch(()=>{});
-  updateSession();
   document.querySelectorAll(".row.playing").forEach(r => r.classList.remove("playing"));
+
+  if(t.src === "yt"){
+    audio.pause(); audio.removeAttribute("src");
+    if(autoplay) ytPlay(t);
+    updateSession();
+  }else{
+    ytPause(); ytStopTick();
+    audio.src = t.url;
+    if(autoplay) audio.play().catch(()=>{});
+    updateSession();
+  }
 }
 
 function next(auto){
   if(!state.queue.length) return;
-  if(state.repeat === "off" && auto && state.qi >= state.queue.length - 1){ audio.pause(); setPlayIcon(false); return; }
+  if(state.repeat === "off" && auto && state.qi >= state.queue.length - 1){ stopAll(); return; }
   state.qi = state.shuffle ? Math.floor(Math.random()*state.queue.length) : (state.qi + 1) % state.queue.length;
-  loadCurrent(true);
+  startCurrent(true);
 }
 function prev(){
-  if(audio.currentTime > 3){ audio.currentTime = 0; return; }
+  const t = cur();
+  if(t?.src === "local" && audio.currentTime > 3){ audio.currentTime = 0; return; }
+  if(t?.src === "yt"){ try{ if(ytPlayer.getCurrentTime() > 3){ ytPlayer.seekTo(0); return; } }catch(e){} }
   if(!state.queue.length) return;
   state.qi = (state.qi - 1 + state.queue.length) % state.queue.length;
-  loadCurrent(true);
+  startCurrent(true);
 }
-function toggle(){ if(audio.src) audio.paused ? audio.play() : audio.pause(); }
+function toggle(){
+  const t = cur(); if(!t) return;
+  if(t.src === "yt"){
+    try{ ytPlayer.getPlayerState() === 1 ? ytPlayer.pauseVideo() : ytPlayer.playVideo(); }catch(e){ ytPlay(t); }
+  }else{
+    if(!audio.src) return;
+    audio.paused ? audio.play() : audio.pause();
+  }
+}
 
 $("#pPlay").onclick = toggle; $("#miniPlay").onclick = toggle;
 $("#pNext").onclick = () => next(false); $("#miniNext").onclick = () => next(false);
@@ -610,23 +743,22 @@ $("#pFav").onclick = () => {
   $("#pFav").classList.toggle("on", state.favs.has(t.id));
   renderHome(); renderLib();
 };
-$("#pList").onclick = () => {
-  if(!cur()) return toast("Nada en reproducción");
-  openDetail("cat", cur().cat);
-};
+$("#pList").onclick = openQueue;
 $("#pSleep").onclick = () => {
   const v = prompt("Minutos para detener (vacío = cancelar):\n15, 30, 45, 60, 90");
   clearTimeout(state.sleepTimer);
   if(!v) return toast("Temporizador cancelado");
   const min = parseInt(v,10); if(!min) return;
-  state.sleepTimer = setTimeout(() => { audio.pause(); toast("Reproducción detenida"); }, min*60000);
+  state.sleepTimer = setTimeout(() => { stopAll(); toast("Reproducción detenida"); }, min*60000);
   toast("Se detendrá en " + min + " min");
 };
 
-let seekDrag = false;
 $("#pSeek").addEventListener("input", () => seekDrag = true);
 $("#pSeek").addEventListener("change", e => {
-  if(audio.duration) audio.currentTime = (e.target.value/1000)*audio.duration;
+  const t = cur(); if(!t) return;
+  const pct = e.target.value / 1000;
+  if(t.src === "yt"){ try{ ytPlayer.seekTo(ytPlayer.getDuration()*pct, true) }catch(err){} }
+  else if(audio.duration) audio.currentTime = audio.duration * pct;
   seekDrag = false;
 });
 
@@ -634,60 +766,87 @@ function openPlayer(){ $("#player").classList.add("open"); }
 $("#pDown").onclick = () => $("#player").classList.remove("open");
 $("#mini").onclick = e => { if(!e.target.closest("button")) openPlayer(); };
 
-/* ---- menú ---- */
+/* ---------- cola ---------- */
+function openQueue(){
+  const up = state.queue.slice(state.qi + 1);
+  $("#queue").innerHTML = `<div class="grab"></div>
+    <div class="qhead"><h3>A continuación (${up.length})</h3><button id="clearQ">Vaciar</button></div>
+    ${up.length ? `<div class="list">${up.map((t,i) => `
+      <div class="row" data-q="${state.qi+1+i}">
+        <img class="art" src="${t.cover}" alt="" loading="lazy">
+        <div class="meta"><div class="t">${esc(t.title)}</div><div class="s">${esc(t.album)}</div></div>
+      </div>`).join("")}</div>`
+    : `<div class="empty">No hay nada más en la cola.</div>`}`;
+  $("#clearQ").onclick = () => { state.queue = state.queue.slice(0, state.qi+1); closeSheets(); toast("Cola vaciada"); };
+  $("#queue").querySelectorAll("[data-q]").forEach(r => r.onclick = () => {
+    state.qi = Number(r.dataset.q); startCurrent(true); closeSheets();
+  });
+  $("#queue").classList.add("open"); $("#scrim").classList.add("on");
+}
+
+/* ---------- menú ---------- */
 function openMenu(id){
-  const t = state.byId.get(id); if(!t) return;
+  const t = lookup(id); if(!t) return;
   const names = Object.keys(state.playlists);
   $("#menu").innerHTML = `<div class="grab"></div>
     <div class="mi" data-act="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Reproducir</div>
     <div class="mi" data-act="next"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Reproducir siguiente</div>
     <div class="mi" data-act="fav"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.7-9.3-9A5.2 5.2 0 0 1 12 6.6 5.2 5.2 0 0 1 21.3 12c-1.8 4.3-9.3 9-9.3 9z"/></svg>
       ${state.favs.has(id) ? "Quitar de favoritos" : "Añadir a favoritos"}</div>
-    <div class="mi" data-act="cat"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>Ir a ${esc(t.album)}</div>
-    <div class="mi" data-act="add"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Añadir a playlist${names.length ? "" : " (crea una)"}</div>`;
-
+    <div class="mi" data-act="add"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Añadir a playlist</div>
+    ${t.src === "yt" ? `<div class="mi" data-act="open"><svg viewBox="0 0 24 24"><path d="M14 4h6v6M20 4 10 14M18 14v6H4V6h6"/></svg>Abrir en YouTube</div>` : ""}`;
   $("#menu").querySelectorAll("[data-act]").forEach(el => el.onclick = () => {
     const a = el.dataset.act;
     if(a === "play") playTrack(t);
     if(a === "next"){ state.queue.splice(state.qi+1, 0, t); toast("Añadida a la cola"); }
     if(a === "fav"){ state.favs.has(id) ? state.favs.delete(id) : state.favs.add(id); LS.set("favs", [...state.favs]); renderHome(); renderLib(); }
-    if(a === "cat") openDetail("cat", t.cat);
+    if(a === "open") window.open("https://www.youtube.com/watch?v=" + t.vid, "_blank");
     if(a === "add"){
       const n = prompt("Nombre de la playlist", names[0] || "");
       if(n){ state.playlists[n] = state.playlists[n] || []; state.playlists[n].push(id); LS.set("playlists", state.playlists); renderPlaylists(); toast("Añadida"); }
     }
-    closeMenu();
+    closeSheets();
   });
   $("#menu").classList.add("open"); $("#scrim").classList.add("on");
 }
-function closeMenu(){ $("#menu").classList.remove("open"); $("#scrim").classList.remove("on"); }
-$("#scrim").onclick = closeMenu;
+function closeSheets(){ $("#menu").classList.remove("open"); $("#queue").classList.remove("open"); $("#scrim").classList.remove("on"); }
+$("#scrim").onclick = closeSheets;
 $("#pMenu").onclick = () => cur() && openMenu(cur().id);
 
-/* ---- MediaSession ---- */
+/* ---------- MediaSession ---------- */
 function updateSession(){
   if(!("mediaSession" in navigator)) return;
   const t = cur(); if(!t) return;
   try{
-    navigator.mediaSession.metadata = new MediaMetadata({ title: t.title, artist: t.artist, album: t.album });
-    navigator.mediaSession.setActionHandler("play", () => audio.play());
-    navigator.mediaSession.setActionHandler("pause", () => audio.pause());
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: t.title, artist: t.artist, album: t.album,
+      artwork: [{ src: t.cover, sizes: "300x300", type: "image/jpeg" }]
+    });
+    navigator.mediaSession.setActionHandler("play", toggle);
+    navigator.mediaSession.setActionHandler("pause", toggle);
     navigator.mediaSession.setActionHandler("previoustrack", prev);
     navigator.mediaSession.setActionHandler("nexttrack", () => next(false));
-    navigator.mediaSession.setActionHandler("seekto", d => { audio.currentTime = d.seekTime; });
+    navigator.mediaSession.setActionHandler("seekto", d => {
+      const c = cur();
+      if(c?.src === "yt"){ try{ ytPlayer.seekTo(d.seekTime, true) }catch(e){} }
+      else audio.currentTime = d.seekTime;
+    });
   }catch(e){}
 }
 
-/* ---- arranque ---- */
-const cache = LS.get("lib", null);
-if(cache?.length){ state.tracks = cache; hydrate(); renderAll(); }
-loadLibrary(true);
+/* ---------- arranque ---------- */
+loadYt();
+const cachedLocal = LS.get("lib", null);
+if(cachedLocal?.length){ state.tracks = cachedLocal; state.byId = new Map(cachedLocal.map(t=>[t.id,t])); }
+document.querySelectorAll("#srcBar button").forEach(b => b.classList.toggle("on", b.dataset.src === state.src));
+renderAll();
+loadLocal(true);
 
 const last = LS.get("pos", null);
 if(last?.id) setTimeout(() => {
-  const t = state.byId.get(last.id);
-  if(t){ state.queue = [t]; state.qi = 0; loadCurrent(false); audio.currentTime = last.t || 0; }
-}, 1000);
+  const t = lookup(last.id);
+  if(t){ state.queue = [t]; state.qi = 0; startCurrent(false); LS.set("pos", { id: t.id, t: last.t || 0 }); }
+}, 900);
 
 if("serviceWorker" in navigator){
   navigator.serviceWorker.register("sw-player.js").catch(()=>{});
