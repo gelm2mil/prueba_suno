@@ -15,8 +15,12 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 20 }
       - uses: actions/setup-java@v4
-        with: { distribution: temurin, java-version: 17 }
-      - run: echo "SDK en $ANDROID_HOME" && ls "$ANDROID_HOME/platforms"
+        with: { distribution: temurin, java-version: 21 }
+      - name: SDK de Android
+        run: |
+          yes | sdkmanager --licenses > /dev/null 2>&1 || true
+          sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
+          echo "listo"
       - run: npm install
       - run: mkdir -p www && cp index.html sw-player.js manifest.webmanifest www/
       - run: npx cap add android
@@ -39,7 +43,11 @@ jobs:
           p.write_text(s)
           EOF
       - run: npx cap copy
-      - run: cd android && chmod +x gradlew && ./gradlew assembleDebug --no-daemon
+      - name: Compilar
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon --stacktrace
       - uses: actions/upload-artifact@v4
         with:
           name: gelm-apk
