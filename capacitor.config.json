@@ -1,0 +1,7 @@
+{
+  "appId": "com.gelm.musica",
+  "appName": "GELM Música",
+  "webDir": "www",
+  "server": { "androidScheme": "https" },
+  "android": { "allowMixedContent": true }
+}
