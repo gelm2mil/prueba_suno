@@ -16,7 +16,7 @@ jobs:
         with: { node-version: 20 }
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: 17 }
-      - uses: android-actions/setup-android@v3
+      - run: echo "SDK en $ANDROID_HOME" && ls "$ANDROID_HOME/platforms"
       - run: npm install
       - run: mkdir -p www && cp index.html sw-player.js manifest.webmanifest www/
       - run: npx cap add android
