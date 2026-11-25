@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Mi Música</title>
+<title>GELM · Música</title>
 <link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{
@@ -18,32 +18,24 @@
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;height:100%;background:var(--bg)}
-body{
-  color:var(--text);font:15px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  overscroll-behavior-y:none;overflow:hidden;
-}
+body{color:var(--text);font:15px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  overscroll-behavior-y:none;overflow:hidden}
 body.lowend{--dur:0ms}
 img{display:block;max-width:100%}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
 input{font:inherit}
 .hide{display:none!important}
 #app{height:100%;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top)}
-
-/* ---------- topbar ---------- */
 #topbar{display:flex;align-items:center;gap:10px;padding:14px 18px 8px}
 #topbar h1{font-size:22px;font-weight:800;letter-spacing:-.4px;margin:0;flex:1}
 .iconbtn{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--surface2);flex:none}
 .iconbtn:active{background:var(--surface3)}
 .iconbtn svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
-
-/* ---------- main ---------- */
 #main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:calc(var(--nav) + 84px + env(safe-area-inset-bottom))}
 .view{padding:0 14px 10px}
 .sect-h{display:flex;align-items:baseline;justify-content:space-between;margin:22px 4px 10px}
 .sect-h h2{font-size:16px;font-weight:800;margin:0}
 .sect-h button{font-size:12.5px;font-weight:700;color:var(--accent)}
-
-/* hero */
 .hero{position:relative;border-radius:26px;overflow:hidden;padding:22px;background:
   radial-gradient(120% 120% at 15% 0%,color-mix(in srgb,var(--accent) 42%,#000) 0%,#15121d 62%,#0d0c12 100%)}
 .hero h2{margin:0 0 4px;font-size:26px;line-height:1.1;font-weight:900;letter-spacing:-.8px}
@@ -52,22 +44,16 @@ input{font:inherit}
 .btn:active{transform:scale(.97)}
 .btn svg{width:18px;height:18px;fill:currentColor;stroke:none}
 .btn.ghost{background:var(--surface2);color:var(--text)}
-
-/* chips */
 .chips{display:flex;gap:8px;overflow-x:auto;padding:4px 4px 2px;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
 .chip{flex:none;padding:9px 15px;border-radius:999px;background:var(--surface2);font-size:13px;font-weight:700;color:var(--muted);white-space:nowrap}
 .chip.on{background:var(--accent);color:var(--accent-ink)}
-
-/* carrusel */
 .carousel{display:flex;gap:12px;overflow-x:auto;padding:2px 4px 6px;scroll-snap-type:x mandatory;scrollbar-width:none}
 .carousel::-webkit-scrollbar{display:none}
 .card{flex:none;width:132px;scroll-snap-align:start}
 .card .art{width:132px;height:132px;border-radius:18px;background:var(--surface2);object-fit:cover}
 .card .t{font-size:13px;font-weight:700;margin:8px 0 1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.card .s{font-size:11.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-
-/* filas */
+.card .s{font-size:11.5px;color:var(--muted)}
 .list{display:flex;flex-direction:column}
 .row{display:flex;align-items:center;gap:12px;padding:8px 6px;border-radius:16px}
 .row:active{background:var(--surface2)}
@@ -75,25 +61,19 @@ input{font:inherit}
 .row .art{width:52px;height:52px;border-radius:13px;background:var(--surface2);object-fit:cover;flex:none}
 .row .meta{flex:1;min-width:0}
 .row .t{font-size:14.5px;font-weight:650;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.row .s{font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.row .dur{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.row .s{font-size:12px;color:var(--muted)}
+.row .num{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:26px;text-align:right;flex:none}
 .row .more{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:var(--muted);flex:none}
 .row .more svg{width:18px;height:18px;fill:currentColor}
 .sentinel{height:1px}
-
-/* detalle */
 .det-head{display:flex;flex-direction:column;align-items:center;text-align:center;padding:8px 6px 18px}
 .det-head .art{width:186px;height:186px;border-radius:24px;object-fit:cover;background:var(--surface2);box-shadow:0 18px 44px -14px #000}
 .det-head h2{margin:16px 0 4px;font-size:21px;font-weight:900;letter-spacing:-.5px}
 .det-head p{margin:0 0 16px;color:var(--muted);font-size:13px}
 .det-actions{display:flex;gap:10px}
-
-/* buscador */
 .search{display:flex;align-items:center;gap:10px;background:var(--surface2);border-radius:999px;padding:11px 16px;margin:4px 4px 12px}
 .search input{flex:1;background:none;border:0;outline:0;color:var(--text);font-size:15px;min-width:0}
 .search svg{width:18px;height:18px;stroke:var(--muted);fill:none;stroke-width:2;flex:none}
-
-/* ajustes */
 .set-item{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 4px;border-bottom:1px solid var(--line)}
 .set-item .lab{font-size:14.5px;font-weight:600}
 .set-item .sub{font-size:12px;color:var(--muted);margin-top:2px}
@@ -102,8 +82,6 @@ input{font:inherit}
 .switch::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform var(--dur)}
 .switch.on{background:var(--accent)}
 .switch.on::after{transform:translateX(20px)}
-
-/* mini player */
 #mini{position:fixed;left:10px;right:10px;bottom:calc(var(--nav) + 8px + env(safe-area-inset-bottom));height:60px;border-radius:18px;
   background:var(--surface2);display:flex;align-items:center;gap:11px;padding:8px 10px;z-index:30;box-shadow:0 10px 26px -8px #000}
 #mini .art{width:44px;height:44px;border-radius:11px;object-fit:cover;background:var(--surface3);flex:none}
@@ -114,16 +92,12 @@ input{font:inherit}
 #mini .bar i{display:block;height:100%;background:var(--accent);width:0}
 #mini button{width:40px;height:40px;display:grid;place-items:center;border-radius:50%;flex:none}
 #mini button svg{width:22px;height:22px;fill:currentColor}
-
-/* nav */
 #nav{position:fixed;left:0;right:0;bottom:0;height:calc(var(--nav) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);
   display:flex;background:#0e0e14e6;border-top:1px solid #ffffff0d;z-index:31}
 #nav button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--muted);font-size:10.5px;font-weight:700}
 #nav button.on{color:var(--accent)}
 #nav svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 #nav button.on svg{fill:currentColor;stroke:none;opacity:.9}
-
-/* hoja reproductor */
 .sheet{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;
   padding:calc(env(safe-area-inset-top) + 6px) 20px calc(env(safe-area-inset-bottom) + 18px);
   transform:translateY(100%);transition:transform var(--dur) cubic-bezier(.22,1,.36,1)}
@@ -154,8 +128,6 @@ body.lowend .sheet .bg{filter:none;opacity:.3}
 .pl-extra button{display:flex;flex-direction:column;align-items:center;gap:5px;font-size:10.5px;color:var(--muted);font-weight:700;padding:10px 6px}
 .pl-extra button.on{color:var(--accent)}
 .pl-extra svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-
-/* menú contextual */
 #menu{position:fixed;left:0;right:0;bottom:0;z-index:70;background:var(--surface);border-radius:26px 26px 0 0;
   padding:10px 14px calc(env(safe-area-inset-bottom) + 14px);transform:translateY(100%);transition:transform var(--dur)}
 #menu.open{transform:none}
@@ -165,7 +137,6 @@ body.lowend .sheet .bg{filter:none;opacity:.3}
 #menu .mi svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none;color:var(--muted)}
 #scrim{position:fixed;inset:0;background:#000a;z-index:65;opacity:0;pointer-events:none;transition:opacity var(--dur)}
 #scrim.on{opacity:1;pointer-events:auto}
-
 #toast{position:fixed;left:50%;bottom:calc(var(--nav) + 82px + env(safe-area-inset-bottom));transform:translate(-50%,20px);
   background:var(--surface3);color:var(--text);padding:11px 18px;border-radius:999px;font-size:13px;font-weight:600;
   z-index:80;opacity:0;pointer-events:none;transition:all var(--dur);max-width:88vw;text-align:center}
@@ -178,7 +149,7 @@ body.lowend .sheet .bg{filter:none;opacity:.3}
 <body>
 <div id="app">
   <header id="topbar">
-    <h1 id="title">Mi Música</h1>
+    <h1 id="title">GELM · Música</h1>
     <button class="iconbtn" id="btnReload" title="Recargar">
       <svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 3v6h-6"/></svg>
     </button>
@@ -190,7 +161,6 @@ body.lowend .sheet .bg{filter:none;opacity:.3}
     <section class="view hide" id="view-detail"></section>
     <section class="view hide" id="view-set"></section>
   </main>
-
   <div id="mini" class="hide">
     <img class="art" id="miniArt" alt="">
     <div class="meta"><div class="t" id="miniT"></div><div class="s" id="miniS"></div></div>
@@ -198,7 +168,6 @@ body.lowend .sheet .bg{filter:none;opacity:.3}
     <button id="miniNext"><svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6h2v12h-2z"/></svg></button>
     <div class="bar"><i id="miniBar"></i></div>
   </div>
-
   <nav id="nav">
     <button data-go="home" class="on"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V21H3z"/></svg><span>Inicio</span></button>
     <button data-go="lib"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span>Biblioteca</span></button>
@@ -231,8 +200,8 @@ body.lowend .sheet .bg{filter:none;opacity:.3}
   </div>
   <div class="pl-extra">
     <button id="pFav"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.7-9.3-9A5.2 5.2 0 0 1 12 6.6 5.2 5.2 0 0 1 21.3 12c-1.8 4.3-9.3 9-9.3 9z"/></svg><span>Favorito</span></button>
-    <button id="pQueue"><svg viewBox="0 0 24 24"><path d="M4 6h11M4 12h11M4 18h7M17 14v6M20 16v4"/></svg><span>Cola</span></button>
     <button id="pSleep"><svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>Dormir</span></button>
+    <button id="pList"><svg viewBox="0 0 24 24"><path d="M4 6h11M4 12h11M4 18h7M17 14v6M20 16v4"/></svg><span>Cola</span></button>
   </div>
 </div>
 
@@ -242,205 +211,173 @@ body.lowend .sheet .bg{filter:none;opacity:.3}
 
 <script>
 "use strict";
-/* =========================================================
-   CONFIGURACIÓN — cambia solo esto
-   ========================================================= */
-const DEFAULT_JSON = "https://raw.githubusercontent.com/TU-USUARIO/TU-REPO/main/music.json";
+/* ============ FUENTES DE DATOS (ya configuradas) ============ */
+const REPO_RAW = "https://raw.githubusercontent.com/gelm2mil/prueba_suno/main/songs.json";
+const SOURCES = ["songs.json", REPO_RAW];
 
 const LS = {
-  get(k, d){ try{ const v = localStorage.getItem("mx_"+k); return v===null?d:JSON.parse(v) }catch(e){ return d } },
-  set(k, v){ try{ localStorage.setItem("mx_"+k, JSON.stringify(v)) }catch(e){} },
-  del(k){ try{ localStorage.removeItem("mx_"+k) }catch(e){} }
+  get(k, d){ try{ const v = localStorage.getItem("gl_"+k); return v===null?d:JSON.parse(v) }catch(e){ return d } },
+  set(k, v){ try{ localStorage.setItem("gl_"+k, JSON.stringify(v)) }catch(e){} },
+  del(k){ try{ localStorage.removeItem("gl_"+k) }catch(e){} }
 };
-
 const $ = s => document.querySelector(s);
 const audio = $("#audio");
 
-/* ---------- estado ---------- */
 const state = {
-  jsonUrl: LS.get("url", DEFAULT_JSON),
-  tracks: [], byId: new Map(),
+  tracks: [], byId: new Map(), cats: [],
   queue: [], qi: -1,
   shuffle: LS.get("shuffle", false), repeat: LS.get("repeat", "off"),
   favs: new Set(LS.get("favs", [])),
   recents: LS.get("recents", []),
   playlists: LS.get("playlists", {}),
-  libFilter: "all",
-  view: "home",
-  menuTarget: null,
-  sleepTimer: null
+  libFilter: "all", view: "home", menuTarget: null, sleepTimer: null
 };
 
-/* ---------- utilidades ---------- */
 let toastT;
-function toast(msg){
-  const t = $("#toast"); t.textContent = msg; t.classList.add("on");
-  clearTimeout(toastT); toastT = setTimeout(()=>t.classList.remove("on"), 2000);
-}
-const fmt = s => {
-  if(!isFinite(s) || s < 0) return "0:00";
-  const m = Math.floor(s/60), r = Math.floor(s%60);
-  return m + ":" + String(r).padStart(2,"0");
-};
+function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("on"); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("on"),2000); }
+const fmt = s => { if(!isFinite(s)||s<0) return "0:00"; return Math.floor(s/60)+":"+String(Math.floor(s%60)).padStart(2,"0"); };
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-function hash(str){ let h = 5381; for(let i=0;i<str.length;i++) h = ((h<<5)+h+str.charCodeAt(i))|0; return "t"+Math.abs(h).toString(36); }
-const PLACE = "data:image/svg+xml;utf8," + encodeURIComponent(
-  '<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160"><rect width="160" height="160" fill="#232330"/><path d="M62 108V58l38-8v42" stroke="#4b4b60" stroke-width="5" fill="none"/><circle cx="55" cy="110" r="10" fill="#4b4b60"/><circle cx="93" cy="94" r="10" fill="#4b4b60"/></svg>');
+const hash = s => { let h=5381; for(let i=0;i<s.length;i++) h=((h<<5)+h+s.charCodeAt(i))|0; return Math.abs(h).toString(36); };
 
-/* ---------- dispositivo ---------- */
+/* ---- portadas generadas por categoría (sin imágenes, sin datos) ---- */
+const PAL = [["#7c4dff","#ff4d94"],["#00b8d4","#2979ff"],["#ff8f00","#ff5252"],["#00c853","#00bfa5"],["#d500f9","#651fff"],["#ff6d00","#ffd600"]];
+const COVERS = new Map();
+function coverFor(cat){
+  const key = cat || "?";
+  if(COVERS.has(key)) return COVERS.get(key);
+  const p = PAL[parseInt(hash(key),36) % PAL.length];
+  const letter = (key === "pmt" ? "P" : key.slice(0,1)).toUpperCase();
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${p[0]}"/><stop offset="1" stop-color="${p[1]}"/></linearGradient></defs><rect width="300" height="300" fill="url(#g)"/><circle cx="250" cy="55" r="125" fill="#ffffff1a"/><circle cx="55" cy="265" r="95" fill="#00000026"/><text x="150" y="200" font-family="system-ui,sans-serif" font-size="150" font-weight="800" fill="#ffffffd0" text-anchor="middle">${letter}</text></svg>`;
+  const uri = "data:image/svg+xml;utf8," + encodeURIComponent(svg);
+  COVERS.set(key, uri);
+  return uri;
+}
+const LABEL = c => ({cultura:"Cultura", historias:"Historias", pmt:"PMT"}[c] || (c ? c[0].toUpperCase()+c.slice(1) : "General"));
+
 (function device(){
-  const mem = navigator.deviceMemory || 4;
-  const cpu = navigator.hardwareConcurrency || 4;
+  const mem = navigator.deviceMemory || 4, cpu = navigator.hardwareConcurrency || 4;
   if(mem <= 3 || cpu <= 4) document.body.classList.add("lowend");
 })();
 
-/* ---------- audio ---------- */
-audio.volume = 1;
-if("mediaSession" in navigator) navigator.mediaSession.setActionHandler?.("seekto", null);
-
+/* ---- audio ---- */
 audio.addEventListener("timeupdate", () => {
   const d = audio.duration || 0;
   $("#pCur").textContent = fmt(audio.currentTime);
-  $("#miniBar").style.width = d ? (audio.currentTime/d*100) + "%" : "0%";
+  $("#miniBar").style.width = d ? (audio.currentTime/d*100)+"%" : "0%";
   if(!seekDrag) $("#pSeek").value = d ? Math.round(audio.currentTime/d*1000) : 0;
-  if(Math.floor(audio.currentTime) % 5 === 0) LS.set("pos", {id: cur()?.id, t: audio.currentTime});
+  if(Math.floor(audio.currentTime) % 5 === 0) LS.set("pos", { id: cur()?.id, t: audio.currentTime });
 });
-audio.addEventListener("loadedmetadata", () => { $("#pDur").textContent = fmt(audio.duration); });
-audio.addEventListener("play",  () => { setPlayIcon(true);  updateSession(); });
-audio.addEventListener("pause", () => { setPlayIcon(false); });
-audio.addEventListener("ended", () => {
-  if(state.repeat === "one"){ audio.currentTime = 0; audio.play(); return; }
-  next(true);
-});
-audio.addEventListener("error", () => {
-  if(!audio.src) return;
-  toast("No se pudo reproducir");
-  setTimeout(()=>next(true), 700);
-});
+audio.addEventListener("loadedmetadata", () => $("#pDur").textContent = fmt(audio.duration));
+audio.addEventListener("play", () => { setPlayIcon(true); updateSession(); });
+audio.addEventListener("pause", () => setPlayIcon(false));
+audio.addEventListener("ended", () => { if(state.repeat === "one"){ audio.currentTime = 0; audio.play(); } else next(true); });
+audio.addEventListener("error", () => { if(!audio.src) return; toast("No se pudo reproducir"); setTimeout(()=>next(true), 700); });
 
-function setPlayIcon(playing){
-  const svg = playing
-    ? '<path d="M6 4h4v16H6zM14 4h4v16h-4z"/>'
-    : '<path d="M8 5v14l11-7z"/>';
-  $("#pPlay").innerHTML = svg;
-  $("#miniPlay").innerHTML = svg;
+function setPlayIcon(on){
+  const svg = on ? '<path d="M6 4h4v16H6zM14 4h4v16h-4z"/>' : '<path d="M8 5v14l11-7z"/>';
+  $("#pPlay").innerHTML = svg; $("#miniPlay").innerHTML = svg;
 }
-
 const cur = () => state.queue[state.qi] || null;
 
-/* ---------- biblioteca ---------- */
-function resolveUrl(u, base){
-  if(!u) return "";
-  if(/^(https?:|data:|blob:)/.test(u)) return u;
-  try{ return new URL(u, base).href }catch(e){ return u }
-}
-
-function parseLibrary(data, base){
-  const out = [];
-  const push = (raw, album, cover, artist) => {
-    if(!raw || typeof raw !== "object") return;
-    const url = raw.url || raw.src || raw.file || raw.path || raw.audio || raw.link || raw.stream || raw.mp3;
+/* ---- lectura y normalización del JSON ---- */
+function normalize(data, base){
+  const arr = Array.isArray(data) ? data
+    : (data.songs || data.tracks || data.music || data.data || data.items || []);
+  if(!Array.isArray(arr)) return [];
+  const out = [], seen = new Set();
+  arr.forEach(raw => {
+    if(!raw) return;
+    const file = raw.file || "";
+    let url = raw.url || raw.src || raw.path || raw.audio || file;
     if(!url) return;
-    const title = raw.title || raw.name || raw.song || raw.track || "Sin título";
-    const art   = raw.artist || raw.author || raw.albumArtist || artist || "Artista desconocido";
-    const alb   = raw.album || album || "";
-    const img   = raw.cover || raw.image || raw.artwork || raw.picture || raw.thumb || cover || "";
-    const abs   = resolveUrl(url, base);
-    out.push({
-      id: String(raw.id || hash(abs + title)),
-      title: String(title), artist: String(art), album: String(alb),
-      cover: resolveUrl(img, base), url: abs,
-      dur: Number(raw.duration || raw.length || raw.time || 0) || 0
-    });
-  };
-  const grab = (arr, album, cover, artist) => {
-    if(!Array.isArray(arr)) return;
-    arr.forEach(t => push(t, album, cover, artist));
-  };
-
-  if(Array.isArray(data)){ grab(data); }
-  else if(data && typeof data === "object"){
-    const cover = data.cover || data.image;
-    grab(data.songs || data.tracks || data.music || data.data || data.items, data.album || data.name, cover);
-    if(Array.isArray(data.albums)) data.albums.forEach(a => grab(a.songs || a.tracks, a.name || a.title || a.album, a.cover || a.image || a.artwork, a.artist));
-    if(Array.isArray(data.artists)) data.artists.forEach(a => grab(a.songs || a.tracks, null, a.cover || a.image, a.name || a.artist));
-    if(Array.isArray(data.playlists)) data.playlists.forEach(p => grab(p.songs || p.tracks, p.name, p.cover || p.image));
-  }
-  const seen = new Set();
-  return out.filter(t => { if(seen.has(t.id)) return false; seen.add(t.id); return true; });
+    if(!/^(https?:|data:|blob:)/.test(url)) { try{ url = new URL(url, base).href }catch(e){} }
+    const id = String(raw.id ?? hash(url));
+    if(seen.has(id)) return; seen.add(id);
+    const cat = String(raw.category || raw.album || "").toLowerCase();
+    let title = String(raw.title || raw.name || file || "Sin título");
+    let num = "";
+    const m = title.match(/^(\d{1,4})[\s._\-–]+(.+)$/);
+    if(m){ num = m[1]; title = m[2]; }
+    out.push({ id, num, title, cat, artist: "GELM", album: LABEL(cat), cover: coverFor(cat), url, dur: 0 });
+  });
+  return out.sort((a,b) => (parseInt(a.num,10)||9999) - (parseInt(b.num,10)||9999));
 }
 
 async function loadLibrary(silent){
   if(!silent) toast("Cargando biblioteca…");
-  try{
-    const res = await fetch(state.jsonUrl, { cache: "no-cache" });
-    if(!res.ok) throw new Error(res.status);
-    const raw = await res.json();
-    const base = new URL(state.jsonUrl, location.href).href;
-    const tracks = parseLibrary(raw, base);
-    if(!tracks.length) throw new Error("vacío");
-    state.tracks = tracks;
-    state.byId = new Map(tracks.map(t => [t.id, t]));
-    LS.set("lib", { t: Date.now(), tracks: tracks.slice(0, 4000) });
-    renderAll();
-    if(!silent) toast(tracks.length + " pistas cargadas");
-  }catch(e){
-    const cache = LS.get("lib", null);
-    if(cache && cache.tracks?.length){
-      state.tracks = cache.tracks;
-      state.byId = new Map(cache.tracks.map(t => [t.id, t]));
-      renderAll();
-      toast("Sin conexión: usando copia local");
-    }else{
-      renderEmpty("No se pudo leer music.json. Revisa la URL en Ajustes.");
-    }
+  let data = null, usedBase = location.href;
+  for(const src of SOURCES){
+    try{
+      const abs = new URL(src, location.href).href;
+      const res = await fetch(abs, { cache: "no-cache" });
+      if(!res.ok) continue;
+      data = await res.json();
+      usedBase = abs;
+      break;
+    }catch(e){}
   }
+  if(!data){
+    const cache = LS.get("lib", null);
+    if(cache?.length){ state.tracks = cache; hydrate(); renderAll(); toast("Sin conexión: copia local"); }
+    else renderEmpty("No se pudo leer songs.json. Revisa la conexión.");
+    return;
+  }
+  const tracks = normalize(data, usedBase);
+  if(!tracks.length){ renderEmpty("songs.json no tiene pistas válidas."); return; }
+  state.tracks = tracks;
+  LS.set("lib", tracks);
+  hydrate();
+  renderAll();
+  if(!silent) toast(tracks.length + " pistas cargadas");
 }
 
-/* ---------- render ---------- */
+function hydrate(){
+  state.byId = new Map(state.tracks.map(t => [t.id, t]));
+  state.cats = [...new Set(state.tracks.map(t => t.cat))].filter(Boolean);
+}
+
 function renderEmpty(msg){
   $("#view-home").innerHTML = `<div class="empty">
     <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
     <p>${esc(msg)}</p></div>`;
 }
 
-function renderAll(){
-  renderHome(); renderLib(); renderPlaylists(); renderSettings();
-}
+/* ---- render ---- */
+function renderAll(){ renderHome(); renderLib(); renderPlaylists(); renderSettings(); }
 
 function renderHome(){
   const v = $("#view-home");
-  const total = state.tracks.length;
-  const albums = new Map();
-  state.tracks.forEach(t => { if(t.album && t.cover) albums.set(t.album, t); });
-  const recents = state.recents.map(id => state.byId.get(id)).filter(Boolean).slice(0, 12);
-  const favs = [...state.favs].map(id => state.byId.get(id)).filter(Boolean).slice(0, 12);
+  const recents = state.recents.map(id => state.byId.get(id)).filter(Boolean).slice(0,12);
+  const favs = [...state.favs].map(id => state.byId.get(id)).filter(Boolean).slice(0,12);
+  const last = LS.get("pos", null);
+  const lastT = last && state.byId.get(last.id);
 
   v.innerHTML = `
     <div class="hero">
-      <h2>Tu música,<br>a tu manera</h2>
-      <p>${total} pistas en la biblioteca</p>
+      <h2>GELM<br>Colección completa</h2>
+      <p>${state.tracks.length} audios · ${state.cats.length} categorías</p>
       <button class="btn" id="heroShuffle">
         <svg viewBox="0 0 24 24"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
         Aleatorio
       </button>
+      ${lastT ? `<button class="btn ghost" id="heroResume" style="margin-left:8px">Continuar</button>` : ""}
     </div>
     ${recents.length ? `<div class="sect-h"><h2>Escuchado hace poco</h2></div>
       <div class="carousel" data-carousel="recent">${recents.map(cardHTML).join("")}</div>` : ""}
     ${favs.length ? `<div class="sect-h"><h2>Favoritos</h2></div>
       <div class="carousel" data-carousel="favs">${favs.map(cardHTML).join("")}</div>` : ""}
-    ${albums.size ? `<div class="sect-h"><h2>Álbumes</h2></div>
-      <div class="carousel">${[...albums.entries()].slice(0,20).map(([a,t]) =>
-        `<button class="card" data-album="${esc(a)}">
-          <img class="art" loading="lazy" decoding="async" src="${esc(t.cover)}" alt="">
-          <div class="t">${esc(a)}</div><div class="s">${esc(t.artist)}</div>
-        </button>`).join("")}</div>` : ""}
-  `;
+    <div class="sect-h"><h2>Categorías</h2></div>
+    <div class="carousel">${state.cats.map(c => {
+      const n = state.tracks.filter(t => t.cat === c).length;
+      return `<button class="card" data-cat="${esc(c)}">
+        <img class="art" src="${coverFor(c)}" alt="">
+        <div class="t">${esc(LABEL(c))}</div><div class="s">${n} pistas</div>
+      </button>`;
+    }).join("")}</div>`;
 
-  $("#heroShuffle").onclick = () => {
-    if(!state.tracks.length) return;
-    const list = state.tracks.slice().sort(() => Math.random() - .5);
-    playList(list, 0);
+  $("#heroShuffle").onclick = () => { if(state.tracks.length) playList(state.tracks.slice().sort(()=>Math.random()-.5), 0); };
+  if(lastT) $("#heroResume").onclick = () => {
+    state.queue = [lastT]; state.qi = 0; loadCurrent(false); audio.currentTime = last.t || 0; openPlayer();
   };
   v.querySelectorAll("[data-carousel]").forEach(c => {
     c.onclick = e => {
@@ -449,39 +386,38 @@ function renderHome(){
       playList(ids.map(i => state.byId.get(i)).filter(Boolean), ids.indexOf(b.dataset.id));
     };
   });
-  v.querySelectorAll("[data-album]").forEach(b => b.onclick = () => openDetail("album", b.dataset.album));
+  v.querySelectorAll("[data-cat]").forEach(b => b.onclick = () => openDetail("cat", b.dataset.cat));
 }
 
-function cardHTML(t){
-  return `<button class="card" data-id="${t.id}">
-    <img class="art" loading="lazy" decoding="async" src="${esc(t.cover || PLACE)}" alt="">
-    <div class="t">${esc(t.title)}</div><div class="s">${esc(t.artist)}</div>
-  </button>`;
-}
+const cardHTML = t => `<button class="card" data-id="${t.id}">
+  <img class="art" src="${t.cover}" alt="" loading="lazy" decoding="async">
+  <div class="t">${esc(t.title)}</div><div class="s">${esc(t.album)}</div>
+</button>`;
 
 function renderLib(){
   const v = $("#view-lib");
   const q = (v.dataset.q || "").trim().toLowerCase();
   let list = state.tracks;
   if(state.libFilter === "favs") list = list.filter(t => state.favs.has(t.id));
-  if(state.libFilter === "recents") list = state.recents.map(id => state.byId.get(id)).filter(Boolean);
-  if(q) list = list.filter(t => (t.title + " " + t.artist + " " + t.album).toLowerCase().includes(q));
+  else if(state.libFilter === "recents") list = state.recents.map(id => state.byId.get(id)).filter(Boolean);
+  else if(state.libFilter !== "all") list = list.filter(t => t.cat === state.libFilter);
+  if(q) list = list.filter(t => (t.title + " " + t.album).toLowerCase().includes(q));
 
   v.innerHTML = `
     <div class="search">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="q" type="search" placeholder="Buscar en la biblioteca" value="${esc(v.dataset.q || "")}">
+      <input id="q" type="search" placeholder="Buscar audio" value="${esc(v.dataset.q || "")}">
     </div>
     <div class="chips">
       <button class="chip ${state.libFilter==="all"?"on":""}" data-f="all">Todo</button>
       <button class="chip ${state.libFilter==="favs"?"on":""}" data-f="favs">Favoritos</button>
       <button class="chip ${state.libFilter==="recents"?"on":""}" data-f="recents">Recientes</button>
+      ${state.cats.map(c => `<button class="chip ${state.libFilter===c?"on":""}" data-f="${esc(c)}">${esc(LABEL(c))}</button>`).join("")}
     </div>
     <div class="list" id="libList"></div>`;
 
   v.querySelectorAll(".chip").forEach(c => c.onclick = () => { state.libFilter = c.dataset.f; renderLib(); });
-  const input = $("#q");
-  let deb;
+  const input = $("#q"); let deb;
   input.oninput = () => { clearTimeout(deb); deb = setTimeout(() => {
     v.dataset.q = input.value; renderLib();
     const ni = $("#q"); ni.focus(); ni.setSelectionRange(ni.value.length, ni.value.length);
@@ -492,23 +428,18 @@ function renderLib(){
   virtualList(cont, list, rowHTML, playList);
 }
 
-function rowHTML(t){
-  return `<div class="row ${cur()?.id === t.id ? "playing" : ""}" data-id="${t.id}">
-    <img class="art" loading="lazy" decoding="async" src="${esc(t.cover || PLACE)}" alt="">
-    <div class="meta"><div class="t">${esc(t.title)}</div><div class="s">${esc(t.artist)}</div></div>
-    <span class="dur">${t.dur ? fmt(t.dur) : ""}</span>
-    <button class="more" data-menu="${t.id}"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button>
-  </div>`;
-}
+const rowHTML = t => `<div class="row ${cur()?.id === t.id ? "playing" : ""}" data-id="${t.id}">
+  <span class="num">${esc(t.num || "")}</span>
+  <div class="meta"><div class="t">${esc(t.title)}</div><div class="s">${esc(t.album)}</div></div>
+  <button class="more" data-menu="${t.id}"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button>
+</div>`;
 
-/* lista virtualizada: agrega bloques de 60 con IntersectionObserver */
 function virtualList(container, items, rowFn, onPlay){
   if(container._io) container._io.disconnect();
   container.innerHTML = "";
   let i = 0;
-  const CHUNK = document.body.classList.contains("lowend") ? 35 : 60;
-  const sentinel = document.createElement("div");
-  sentinel.className = "sentinel";
+  const CHUNK = document.body.classList.contains("lowend") ? 30 : 55;
+  const sentinel = document.createElement("div"); sentinel.className = "sentinel";
   const add = () => {
     const frag = document.createDocumentFragment();
     const end = Math.min(i + CHUNK, items.length);
@@ -517,14 +448,12 @@ function virtualList(container, items, rowFn, onPlay){
   };
   const io = new IntersectionObserver(es => { if(es[0].isIntersecting) add(); }, { root: $("#main"), rootMargin: "700px" });
   container._io = io;
-  container.appendChild(sentinel);
-  add(); io.observe(sentinel);
+  container.appendChild(sentinel); add(); io.observe(sentinel);
 
   container.onclick = e => {
     const m = e.target.closest("[data-menu]");
     if(m){ openMenu(m.dataset.menu); return; }
-    const row = e.target.closest(".row");
-    if(!row) return;
+    const row = e.target.closest(".row"); if(!row) return;
     const idx = items.findIndex(t => t.id === row.dataset.id);
     if(idx >= 0) onPlay(items, idx);
   };
@@ -533,19 +462,16 @@ function virtualList(container, items, rowFn, onPlay){
 function renderPlaylists(){
   const v = $("#view-pl");
   const names = Object.keys(state.playlists);
-  v.innerHTML = `<div class="sect-h"><h2>Playlists</h2>
-    <button id="newPl">Nueva</button></div>
+  v.innerHTML = `<div class="sect-h"><h2>Playlists</h2><button id="newPl">Nueva</button></div>
     ${names.length ? names.map(n => {
       const first = state.playlists[n].map(id => state.byId.get(id)).find(Boolean);
       return `<button class="row" data-pl="${esc(n)}">
-        <img class="art" loading="lazy" src="${esc(first?.cover || PLACE)}" alt="">
+        <img class="art" src="${first?.cover || coverFor("lista")}" alt="" loading="lazy">
         <div class="meta"><div class="t">${esc(n)}</div><div class="s">${state.playlists[n].length} pistas</div></div>
       </button>`;
-    }).join("") : `<div class="empty">
-      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><p>Crea tu primera playlist.</p></div>`}`;
+    }).join("") : `<div class="empty"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><p>Crea tu primera playlist.</p></div>`}`;
   $("#newPl").onclick = () => {
-    const n = prompt("Nombre de la playlist");
-    if(!n) return;
+    const n = prompt("Nombre de la playlist"); if(!n) return;
     state.playlists[n] = state.playlists[n] || [];
     LS.set("playlists", state.playlists); renderPlaylists(); toast("Playlist creada");
   };
@@ -555,13 +481,12 @@ function renderPlaylists(){
 function openDetail(kind, key){
   const v = $("#view-detail");
   let list = [], title = key, sub = "";
-  if(kind === "album"){ list = state.tracks.filter(t => t.album === key); sub = list[0]?.artist || ""; }
-  if(kind === "artist"){ list = state.tracks.filter(t => t.artist === key); sub = list.length + " pistas"; }
+  if(kind === "cat"){ list = state.tracks.filter(t => t.cat === key); title = LABEL(key); sub = list.length + " pistas"; }
   if(kind === "playlist"){ list = (state.playlists[key] || []).map(id => state.byId.get(id)).filter(Boolean); sub = list.length + " pistas"; }
 
   v.innerHTML = `
     <div class="det-head">
-      <img class="art" src="${esc(list[0]?.cover || PLACE)}" alt="">
+      <img class="art" src="${list[0]?.cover || coverFor(key)}" alt="">
       <h2>${esc(title)}</h2><p>${esc(sub)}</p>
       <div class="det-actions">
         <button class="btn" id="dPlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Reproducir</button>
@@ -571,46 +496,31 @@ function openDetail(kind, key){
     <div class="list" id="detList"></div>`;
 
   $("#dPlay").onclick = () => playList(list, 0);
-  $("#dShuffle").onclick = () => playList(list.slice().sort(() => Math.random() - .5), 0);
+  $("#dShuffle").onclick = () => playList(list.slice().sort(()=>Math.random()-.5), 0);
   virtualList($("#detList"), list, rowHTML, playList);
   go("detail");
 }
 
 function renderSettings(){
-  const v = $("#view-set");
-  v.innerHTML = `
-    <div class="set-item" style="flex-direction:column;align-items:stretch;gap:8px">
-      <div class="lab">URL de music.json</div>
-      <input type="text" id="urlInput" value="${esc(state.jsonUrl)}" spellcheck="false">
-      <button class="btn" id="saveUrl" style="align-self:flex-start;padding:10px 18px">Guardar y recargar</button>
-    </div>
+  $("#view-set").innerHTML = `
     <div class="set-item"><div><div class="lab">Animaciones</div><div class="sub">Desactívalas en equipos lentos</div></div>
       <div class="switch ${document.body.classList.contains("lowend")?"on":""}" id="swAnim"></div></div>
-    <div class="set-item"><div><div class="lab">Caché de audio offline</div><div class="sub">Guarda lo que reproduces</div></div>
+    <div class="set-item"><div><div class="lab">Guardar audio offline</div><div class="sub">Cachea lo que escuchas</div></div>
       <div class="switch ${LS.get("offline", true)?"on":""}" id="swOff"></div></div>
-    <div class="set-item"><div><div class="lab">Color de acento</div><div class="sub">Automático desde la carátula</div></div>
-      <input type="color" id="accent" value="${LS.get("accent", "#c9a8ff")}" style="width:46px;height:32px;border:0;background:none"></div>
     <div class="set-item"><div class="lab">Borrar favoritos, playlists e historial</div>
       <button class="btn ghost" id="wipe" style="padding:9px 16px;font-size:13px">Borrar</button></div>
+    <div class="set-item" style="flex-direction:column;align-items:stretch;gap:8px">
+      <div class="lab">Fuente de datos</div>
+      <div class="sub">${esc(SOURCES[0])} → respaldo raw del repo</div>
+    </div>
     <p style="color:var(--muted);font-size:12px;padding:18px 4px;line-height:1.6">
-      Instala el reproductor desde el menú del navegador ("Añadir a pantalla de inicio") para usarlo a pantalla completa y sin barra de direcciones.
+      Instala desde el menú del navegador → "Añadir a pantalla de inicio" para usarlo a pantalla completa.
     </p>`;
-
-  $("#saveUrl").onclick = () => {
-    const u = $("#urlInput").value.trim();
-    if(!u) return;
-    state.jsonUrl = u; LS.set("url", u); loadLibrary();
-  };
-  $("#swAnim").onclick = e => {
-    e.currentTarget.classList.toggle("on");
-    document.body.classList.toggle("lowend", !e.currentTarget.classList.contains("on"));
-  };
+  $("#swAnim").onclick = e => { e.currentTarget.classList.toggle("on"); document.body.classList.toggle("lowend", !e.currentTarget.classList.contains("on")); };
   $("#swOff").onclick = e => {
-    const on = e.currentTarget.classList.toggle("on");
-    LS.set("offline", on);
+    const on = e.currentTarget.classList.toggle("on"); LS.set("offline", on);
     navigator.serviceWorker?.controller?.postMessage({ type: "offline", on });
   };
-  $("#accent").oninput = e => { LS.set("accent", e.target.value); document.documentElement.style.setProperty("--accent", e.target.value); };
   $("#wipe").onclick = () => {
     if(!confirm("¿Borrar datos locales?")) return;
     ["favs","playlists","recents","pos"].forEach(LS.del);
@@ -619,11 +529,11 @@ function renderSettings(){
   };
 }
 
-/* ---------- navegación ---------- */
-const TITLES = { home: "Mi Música", lib: "Biblioteca", pl: "Playlists", set: "Ajustes", detail: "" };
+/* ---- navegación ---- */
+const TITLES = { home:"GELM · Música", lib:"Biblioteca", pl:"Playlists", set:"Ajustes", detail:"" };
 function go(view){
   state.view = view;
-  ["home","lib","pl","set","detail"].forEach(v => $("#view-" + v).classList.toggle("hide", v !== view));
+  ["home","lib","pl","set","detail"].forEach(v => $("#view-"+v).classList.toggle("hide", v !== view));
   document.querySelectorAll("#nav button").forEach(b => b.classList.toggle("on", b.dataset.go === view));
   $("#title").textContent = TITLES[view];
   $("#main").scrollTop = 0;
@@ -634,31 +544,30 @@ document.querySelectorAll("#nav button").forEach(b => b.onclick = () => {
 });
 $("#btnReload").onclick = () => loadLibrary();
 
-/* ---------- reproducción ---------- */
+/* ---- reproducción ---- */
 function playList(list, index){
   if(!list || !list.length) return;
-  state.queue = list.slice();
-  state.qi = index || 0;
-  loadCurrent(true);
-  openPlayer();
+  state.queue = list.slice(); state.qi = index || 0;
+  loadCurrent(true); openPlayer();
 }
-function playTrack(t){ playList(state.tracks, state.tracks.findIndex(x => x.id === t.id)); }
+function playTrack(t){ const i = state.tracks.findIndex(x => x.id === t.id); playList(state.tracks, i); }
 
 function loadCurrent(autoplay){
   const t = cur(); if(!t) return;
   audio.src = t.url;
   $("#pT").textContent = t.title;
-  $("#pS").textContent = t.artist + (t.album ? " · " + t.album : "");
-  $("#pArt").src = t.cover || PLACE;
-  $("#pBg").style.backgroundImage = `url("${(t.cover || PLACE).replace(/"/g,"")}")`;
+  $("#pS").textContent = t.artist + " · " + t.album;
+  $("#pArt").src = t.cover;
+  $("#pBg").style.backgroundImage = `url("${t.cover}")`;
   $("#miniT").textContent = t.title;
-  $("#miniS").textContent = t.artist;
-  $("#miniArt").src = t.cover || PLACE;
+  $("#miniS").textContent = t.album;
+  $("#miniArt").src = t.cover;
   $("#mini").classList.remove("hide");
   $("#pFav").classList.toggle("on", state.favs.has(t.id));
-  $("#pDur").textContent = t.dur ? fmt(t.dur) : "0:00";
-  accentFrom(t.cover);
-  state.recents = [t.id, ...state.recents.filter(i => i !== t.id)].slice(0, 60);
+  $("#pDur").textContent = "0:00";
+  const p = PAL[parseInt(hash(t.cat || "x"),36) % PAL.length];
+  document.documentElement.style.setProperty("--accent", p[0]);
+  state.recents = [t.id, ...state.recents.filter(i => i !== t.id)].slice(0,60);
   LS.set("recents", state.recents);
   if(autoplay) audio.play().catch(()=>{});
   updateSession();
@@ -668,7 +577,7 @@ function loadCurrent(autoplay){
 function next(auto){
   if(!state.queue.length) return;
   if(state.repeat === "off" && auto && state.qi >= state.queue.length - 1){ audio.pause(); setPlayIcon(false); return; }
-  state.qi = state.shuffle ? Math.floor(Math.random() * state.queue.length) : (state.qi + 1) % state.queue.length;
+  state.qi = state.shuffle ? Math.floor(Math.random()*state.queue.length) : (state.qi + 1) % state.queue.length;
   loadCurrent(true);
 }
 function prev(){
@@ -677,15 +586,10 @@ function prev(){
   state.qi = (state.qi - 1 + state.queue.length) % state.queue.length;
   loadCurrent(true);
 }
-function toggle(){
-  if(!audio.src) return;
-  audio.paused ? audio.play() : audio.pause();
-}
+function toggle(){ if(audio.src) audio.paused ? audio.play() : audio.pause(); }
 
-$("#pPlay").onclick = toggle;
-$("#miniPlay").onclick = toggle;
-$("#pNext").onclick = () => next(false);
-$("#miniNext").onclick = () => next(false);
+$("#pPlay").onclick = toggle; $("#miniPlay").onclick = toggle;
+$("#pNext").onclick = () => next(false); $("#miniNext").onclick = () => next(false);
 $("#pPrev").onclick = prev;
 
 $("#pShuffle").onclick = e => { state.shuffle = !state.shuffle; e.currentTarget.classList.toggle("on", state.shuffle); LS.set("shuffle", state.shuffle); };
@@ -706,56 +610,48 @@ $("#pFav").onclick = () => {
   $("#pFav").classList.toggle("on", state.favs.has(t.id));
   renderHome(); renderLib();
 };
-$("#pQueue").onclick = () => {
-  if(!state.queue.length) return toast("La cola está vacía");
-  openDetail("album", state.queue[0].album || "Cola");
+$("#pList").onclick = () => {
+  if(!cur()) return toast("Nada en reproducción");
+  openDetail("cat", cur().cat);
 };
 $("#pSleep").onclick = () => {
-  const opts = [15, 30, 45, 60, 90];
-  const label = prompt("Minutos para detener (vacío = cancelar)\n" + opts.join(", "));
+  const v = prompt("Minutos para detener (vacío = cancelar):\n15, 30, 45, 60, 90");
   clearTimeout(state.sleepTimer);
-  if(!label) return toast("Temporizador cancelado");
-  const min = parseInt(label, 10);
-  if(!min) return;
-  state.sleepTimer = setTimeout(() => { audio.pause(); toast("Reproducción detenida"); }, min * 60000);
+  if(!v) return toast("Temporizador cancelado");
+  const min = parseInt(v,10); if(!min) return;
+  state.sleepTimer = setTimeout(() => { audio.pause(); toast("Reproducción detenida"); }, min*60000);
   toast("Se detendrá en " + min + " min");
 };
 
-/* seek */
 let seekDrag = false;
-$("#pSeek").addEventListener("input", () => { seekDrag = true; });
+$("#pSeek").addEventListener("input", () => seekDrag = true);
 $("#pSeek").addEventListener("change", e => {
-  if(audio.duration) audio.currentTime = (e.target.value / 1000) * audio.duration;
+  if(audio.duration) audio.currentTime = (e.target.value/1000)*audio.duration;
   seekDrag = false;
 });
 
-/* ---------- hoja del reproductor ---------- */
 function openPlayer(){ $("#player").classList.add("open"); }
 $("#pDown").onclick = () => $("#player").classList.remove("open");
 $("#mini").onclick = e => { if(!e.target.closest("button")) openPlayer(); };
 
-/* ---------- menú contextual ---------- */
+/* ---- menú ---- */
 function openMenu(id){
   const t = state.byId.get(id); if(!t) return;
-  state.menuTarget = t;
   const names = Object.keys(state.playlists);
-  $("#menu").innerHTML = `
-    <div class="grab"></div>
+  $("#menu").innerHTML = `<div class="grab"></div>
     <div class="mi" data-act="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Reproducir</div>
     <div class="mi" data-act="next"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Reproducir siguiente</div>
     <div class="mi" data-act="fav"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.7-9.3-9A5.2 5.2 0 0 1 12 6.6 5.2 5.2 0 0 1 21.3 12c-1.8 4.3-9.3 9-9.3 9z"/></svg>
       ${state.favs.has(id) ? "Quitar de favoritos" : "Añadir a favoritos"}</div>
-    ${t.album ? `<div class="mi" data-act="album"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>Ir al álbum</div>` : ""}
-    <div class="mi" data-act="artist"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Ir al artista</div>
+    <div class="mi" data-act="cat"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>Ir a ${esc(t.album)}</div>
     <div class="mi" data-act="add"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Añadir a playlist${names.length ? "" : " (crea una)"}</div>`;
 
   $("#menu").querySelectorAll("[data-act]").forEach(el => el.onclick = () => {
     const a = el.dataset.act;
     if(a === "play") playTrack(t);
-    if(a === "next"){ state.queue.splice(state.qi + 1, 0, t); toast("Añadida a la cola"); }
+    if(a === "next"){ state.queue.splice(state.qi+1, 0, t); toast("Añadida a la cola"); }
     if(a === "fav"){ state.favs.has(id) ? state.favs.delete(id) : state.favs.add(id); LS.set("favs", [...state.favs]); renderHome(); renderLib(); }
-    if(a === "album") openDetail("album", t.album);
-    if(a === "artist") openDetail("artist", t.artist);
+    if(a === "cat") openDetail("cat", t.cat);
     if(a === "add"){
       const n = prompt("Nombre de la playlist", names[0] || "");
       if(n){ state.playlists[n] = state.playlists[n] || []; state.playlists[n].push(id); LS.set("playlists", state.playlists); renderPlaylists(); toast("Añadida"); }
@@ -768,40 +664,12 @@ function closeMenu(){ $("#menu").classList.remove("open"); $("#scrim").classList
 $("#scrim").onclick = closeMenu;
 $("#pMenu").onclick = () => cur() && openMenu(cur().id);
 
-/* ---------- color de acento desde la carátula ---------- */
-const cv = document.createElement("canvas"); cv.width = cv.height = 16;
-const cx = cv.getContext("2d", { willReadFrequently: true });
-let lastCover = "";
-function accentFrom(src){
-  if(!src || src === lastCover) return;
-  lastCover = src;
-  const img = new Image(); img.crossOrigin = "anonymous";
-  img.onload = () => {
-    try{
-      cx.drawImage(img, 0, 0, 16, 16);
-      const d = cx.getImageData(0, 0, 16, 16).data;
-      let r=0,g=0,b=0,n=0;
-      for(let i=0;i<d.length;i+=4){
-        const mx = Math.max(d[i],d[i+1],d[i+2]), mn = Math.min(d[i],d[i+1],d[i+2]);
-        if(mx > 40 && mx - mn > 18){ r+=d[i]; g+=d[i+1]; b+=d[i+2]; n++; }
-      }
-      if(!n) return;
-      const hex = "#" + [r/n,g/n,b/n].map(v => Math.round(Math.min(255, v*1.25)).toString(16).padStart(2,"0")).join("");
-      document.documentElement.style.setProperty("--accent", hex);
-    }catch(e){}
-  };
-  img.src = src;
-}
-
-/* ---------- MediaSession ---------- */
+/* ---- MediaSession ---- */
 function updateSession(){
   if(!("mediaSession" in navigator)) return;
   const t = cur(); if(!t) return;
   try{
-    navigator.mediaSession.metadata = new MediaMetadata({
-      title: t.title, artist: t.artist, album: t.album,
-      artwork: t.cover ? [{ src: t.cover, sizes: "512x512", type: "image/jpeg" }] : []
-    });
+    navigator.mediaSession.metadata = new MediaMetadata({ title: t.title, artist: t.artist, album: t.album });
     navigator.mediaSession.setActionHandler("play", () => audio.play());
     navigator.mediaSession.setActionHandler("pause", () => audio.pause());
     navigator.mediaSession.setActionHandler("previoustrack", prev);
@@ -810,26 +678,19 @@ function updateSession(){
   }catch(e){}
 }
 
-/* ---------- init ---------- */
-document.documentElement.style.setProperty("--accent", LS.get("accent", "#c9a8ff"));
+/* ---- arranque ---- */
 const cache = LS.get("lib", null);
-if(cache?.tracks?.length){
-  state.tracks = cache.tracks;
-  state.byId = new Map(cache.tracks.map(t => [t.id, t]));
-  renderAll();
-}
+if(cache?.length){ state.tracks = cache; hydrate(); renderAll(); }
 loadLibrary(true);
 
 const last = LS.get("pos", null);
-if(last?.id){
-  setTimeout(() => {
-    const t = state.byId.get(last.id);
-    if(t){ state.queue = [t]; state.qi = 0; loadCurrent(false); audio.currentTime = last.t || 0; }
-  }, 1200);
-}
+if(last?.id) setTimeout(() => {
+  const t = state.byId.get(last.id);
+  if(t){ state.queue = [t]; state.qi = 0; loadCurrent(false); audio.currentTime = last.t || 0; }
+}, 1000);
 
 if("serviceWorker" in navigator){
-  navigator.serviceWorker.register("sw.js").catch(()=>{});
+  navigator.serviceWorker.register("sw-player.js").catch(()=>{});
   navigator.storage?.persist?.();
 }
 </script>
