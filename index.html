@@ -221,7 +221,6 @@ body.lowend .sheet .bg{filter:none;opacity:.3}
 "use strict";
 const REPO_RAW = "https://raw.githubusercontent.com/gelm2mil/prueba_suno/main/songs.json";
 const SOURCES = ["songs.json", REPO_RAW];
-const YT_PLAYLIST = "PLJGpqFTRWh98";
 
 /* Playlist oficial GT-GELM incrustada: [id, titulo, segundos] */
 const YT_SEED = [
@@ -318,7 +317,7 @@ const activeList = () => state.src === "yt" ? state.yt : state.tracks;
 })();
 
 /* ---------- audio local ---------- */
-let seekDrag = false;
+let seekDrag = false, fails = 0;
 audio.addEventListener("timeupdate", () => {
   const d = audio.duration || 0;
   if(!seekDrag) $("#pSeek").value = d ? Math.round(audio.currentTime/d*1000) : 0;
@@ -330,45 +329,62 @@ audio.addEventListener("loadedmetadata", () => $("#pDur").textContent = fmt(audi
 audio.addEventListener("play", () => { setPlayIcon(true); updateSession(); });
 audio.addEventListener("pause", () => setPlayIcon(false));
 audio.addEventListener("ended", () => { if(state.repeat === "one"){ audio.currentTime = 0; audio.play(); } else next(true); });
-audio.addEventListener("error", () => { if(!audio.src) return; toast("No se pudo reproducir"); setTimeout(()=>next(true), 700); });
+audio.addEventListener("error", () => {
+  if(cur()?.src !== "local") return;
+  if(++fails > 8){ fails = 0; stopAll(); toast("Audio no disponible"); return; }
+  toast("No se pudo reproducir");
+  setTimeout(()=>next(true), 600);
+});
 
 function setPlayIcon(on){
   const svg = on ? '<path d="M6 4h4v16H6zM14 4h4v16h-4z"/>' : '<path d="M8 5v14l11-7z"/>';
   $("#pPlay").innerHTML = svg; $("#miniPlay").innerHTML = svg;
+  try{ on ? window.NativePlayer?.play() : window.NativePlayer?.pause(); }catch(e){}
 }
 const cur = () => state.queue[state.qi] || null;
 
-/* ---------- YouTube (IFrame API) ---------- */
-let ytPlayer = null, ytReadyP = null, ytTick = null;
-function ytLoad(){
-  if(ytReadyP) return ytReadyP;
-  ytReadyP = new Promise((res, rej) => {
+/* ---------- YouTube ---------- */
+let ytPlayer = null, ytApiP = null, ytTick = null, ytFails = 0;
+
+function ytPreload(){
+  if(ytApiP) return ytApiP;
+  ytApiP = new Promise(res => {
+    if(window.YT && window.YT.Player) return res();
     const s = document.createElement("script");
     s.src = "https://www.youtube.com/iframe_api";
-    s.onerror = rej;
     document.head.appendChild(s);
-    window.onYouTubeIframeAPIReady = () => {
-      ytPlayer = new YT.Player("ytHost", {
-        width: 2, height: 2,
-        playerVars: { autoplay: 1, controls: 0, playsinline: 1, rel: 0, modestbranding: 1, origin: location.origin },
-        events: {
-          onReady: () => res(),
-          onStateChange: e => {
-            if(e.data === 1){ setPlayIcon(true); updateSession(); ytTitle(); ytStartTick(); }
-            if(e.data === 2){ setPlayIcon(false); ytStopTick(); }
-            if(e.data === 0) next(true);
-          },
-          onError: () => setTimeout(()=>next(true), 800)
-        }
-      });
-    };
+    window.onYouTubeIframeAPIReady = () => res();
   });
-  return ytReadyP;
+  return ytApiP;
 }
+
+function ensurePlayer(vid){
+  if(ytPlayer) return true;
+  if(!(window.YT && window.YT.Player)) return false;
+  ytPlayer = new YT.Player("ytHost", {
+    width: 320, height: 180, videoId: vid,
+    playerVars: { autoplay: 1, controls: 0, playsinline: 1, rel: 0, modestbranding: 1, enablejsapi: 1, origin: location.origin },
+    events: {
+      onReady: e => { try{ e.target.setVolume(100) }catch(err){} },
+      onStateChange: e => {
+        if(e.data === 1){ ytFails = 0; setPlayIcon(true); updateSession(); ytTitle(); ytStartTick(); }
+        if(e.data === 2){ setPlayIcon(false); ytStopTick(); }
+        if(e.data === 0) next(true);
+      },
+      onError: () => {
+        ytStopTick();
+        if(++ytFails > 10){ ytFails = 0; setPlayIcon(false); toast("YouTube no responde"); return; }
+        setTimeout(()=>next(true), 500);
+      }
+    }
+  });
+  return true;
+}
+
 function ytTitle(){
   try{
     const d = ytPlayer.getVideoData();
-    if(d && d.title) { $("#pT").textContent = d.title; $("#miniT").textContent = d.title; }
+    if(d && d.title){ $("#pT").textContent = d.title; $("#miniT").textContent = d.title; }
   }catch(e){}
 }
 function ytStartTick(){
@@ -385,11 +401,16 @@ function ytStartTick(){
   }, 900);
 }
 function ytStopTick(){ if(ytTick) clearInterval(ytTick); ytTick = null; }
-async function ytPlay(t){
-  try{
-    await ytLoad();
-    ytPlayer.loadVideoById(t.id);
-  }catch(e){ toast("YouTube no cargó. Revisa la conexión."); }
+
+function ytPlay(t){
+  if(!ytPlayer){
+    if(ensurePlayer(t.vid)) return;
+    ytPreload().then(() => { if(cur()?.vid === t.vid && !ytPlayer) ensurePlayer(t.vid); })
+      .catch(()=> toast("YouTube no cargó"));
+    return;
+  }
+  try{ ytPlayer.loadVideoById(t.vid); }
+  catch(e){ setTimeout(()=>{ try{ ytPlayer.loadVideoById(t.vid) }catch(_){} }, 400); }
 }
 function ytPause(){ try{ ytPlayer?.pauseVideo() }catch(e){} }
 
@@ -476,7 +497,7 @@ function renderHome(){
 
   $("#heroPlay").onclick = () => list.length && playList(list, 0);
   $("#heroShuffle").onclick = () => list.length && playList(list.slice().sort(()=>Math.random()-.5), 0);
-  if(lastT) $("#heroResume").onclick = () => { state.queue=[lastT]; state.qi=0; startCurrent(false); audio.currentTime = last.t||0; openPlayer(); };
+  if(lastT) $("#heroResume").onclick = () => { state.queue=[lastT]; state.qi=0; startCurrent(false); openPlayer(); };
   $("#seeAll").onclick = () => { state.libFilter = "all"; renderLib(); go("lib"); };
   v.querySelectorAll("[data-carousel]").forEach(c => c.onclick = e => {
     const b = e.target.closest("[data-id]"); if(!b) return;
@@ -528,7 +549,6 @@ const rowHTML = t => `<div class="row ${cur()?.id === t.id ? "playing" : ""}" da
   <button class="more" data-menu="${t.id}"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button>
 </div>`;
 
-/* FIX: insertAdjacentHTML sobre el centinela, no sobre un DocumentFragment */
 function virtualList(container, items, rowFn, onPlay){
   if(container._io) container._io.disconnect();
   container.innerHTML = "";
@@ -602,10 +622,10 @@ function renderSettings(){
       <div class="switch ${LS.get("offline", true)?"on":""}" id="swOff"></div></div>
     <div class="set-item"><div class="lab">Borrar favoritos, playlists e historial</div>
       <button class="btn ghost" id="wipe" style="padding:9px 16px;font-size:13px">Borrar</button></div>
-    <div class="set-item" style="flex-direction:column;align-items:stretch;gap:8px">
-      <div class="lab">Playlist de YouTube</div>
-      <div class="sub">Actual: ${esc(YT_PLAYLIST)} (GT-GELM)</div>
-      <div class="sub">Los audios MP3 salen de songs.json del repo.</div>
+    <div class="set-item" style="flex-direction:column;align-items:stretch;gap:6px">
+      <div class="lab">Fuentes</div>
+      <div class="sub">YouTube: playlist oficial GT-GELM (94 pistas incrustadas).</div>
+      <div class="sub">MP3: songs.json del repositorio.</div>
     </div>`;
   $("#swAnim").onclick = e => { e.currentTarget.classList.toggle("on"); document.body.classList.toggle("lowend", !e.currentTarget.classList.contains("on")); };
   $("#swOff").onclick = e => {
@@ -668,6 +688,7 @@ function playTrack(t){
 
 function startCurrent(autoplay){
   const t = cur(); if(!t) return;
+  fails = 0;
   $("#pT").textContent = t.title;
   $("#pS").textContent = t.artist + " · " + t.album;
   $("#pArt").src = t.cover;
@@ -687,7 +708,7 @@ function startCurrent(autoplay){
 
   if(t.src === "yt"){
     audio.pause(); audio.removeAttribute("src");
-    if(autoplay) ytPlay(t);
+    if(autoplay) ytPlay(t); else ytPause();
     updateSession();
   }else{
     ytPause(); ytStopTick();
@@ -714,7 +735,8 @@ function prev(){
 function toggle(){
   const t = cur(); if(!t) return;
   if(t.src === "yt"){
-    try{ ytPlayer.getPlayerState() === 1 ? ytPlayer.pauseVideo() : ytPlayer.playVideo(); }catch(e){ ytPlay(t); }
+    try{ ytPlayer.getPlayerState() === 1 ? ytPlayer.pauseVideo() : ytPlayer.playVideo(); }
+    catch(e){ ytPlay(t); }
   }else{
     if(!audio.src) return;
     audio.paused ? audio.play() : audio.pause();
@@ -836,6 +858,7 @@ function updateSession(){
 
 /* ---------- arranque ---------- */
 loadYt();
+ytPreload();
 const cachedLocal = LS.get("lib", null);
 if(cachedLocal?.length){ state.tracks = cachedLocal; state.byId = new Map(cachedLocal.map(t=>[t.id,t])); }
 document.querySelectorAll("#srcBar button").forEach(b => b.classList.toggle("on", b.dataset.src === state.src));
@@ -845,7 +868,7 @@ loadLocal(true);
 const last = LS.get("pos", null);
 if(last?.id) setTimeout(() => {
   const t = lookup(last.id);
-  if(t){ state.queue = [t]; state.qi = 0; startCurrent(false); LS.set("pos", { id: t.id, t: last.t || 0 }); }
+  if(t){ state.queue = [t]; state.qi = 0; startCurrent(false); }
 }, 900);
 
 if("serviceWorker" in navigator){
