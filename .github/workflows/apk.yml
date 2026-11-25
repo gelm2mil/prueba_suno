@@ -1,4 +1,4 @@
-name: .github/workflows/apk.yml
+name: name: APK
 on: workflow_dispatch
 
 jobs:
