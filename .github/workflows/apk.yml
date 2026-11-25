@@ -1,4 +1,4 @@
-name: name: APK
+name: APK
 on: workflow_dispatch
 
 jobs:
