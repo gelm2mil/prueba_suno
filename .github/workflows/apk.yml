@@ -31,10 +31,21 @@ jobs:
             "$SDKM" "platform-tools" "platforms;android-35" "build-tools;35.0.0" || true
           fi
           java -version
-          node -v
       - run: npm install --no-audit --no-fund
-      - run: mkdir -p www && cp index.html sw-player.js manifest.webmanifest www/
+      - run: mkdir -p www && cp -r index.html sw-player.js manifest.webmanifest ICONS www/
       - run: npx cap add android
+      - name: Íconos
+        run: |
+          command -v convert >/dev/null || sudo apt-get install -y -qq imagemagick
+          convert ICONS/GT-GELM.png -resize 512x512^ -gravity center -extent 512x512 icon-512.png
+          convert icon-512.png -resize 192x192 icon-192.png
+          for spec in "mdpi 48 108" "hdpi 72 162" "xhdpi 96 216" "xxhdpi 144 324" "xxxhdpi 192 432"; do
+            set -- $spec
+            mkdir -p "android/app/src/main/res/mipmap-$1"
+            convert icon-512.png -resize $2x$2 "android/app/src/main/res/mipmap-$1/ic_launcher.png"
+            cp "android/app/src/main/res/mipmap-$1/ic_launcher.png" "android/app/src/main/res/mipmap-$1/ic_launcher_round.png"
+            convert ICONS/GT-GELM.png -background none -gravity center -resize $(($3*70/100))x$(($3*70/100)) -extent $3x$3 "android/app/src/main/res/mipmap-$1/ic_launcher_foreground.png"
+          done
       - run: cp native/MainActivity.java android/app/src/main/java/com/gelm/musica/MainActivity.java
       - run: cp native/PlaybackService.java android/app/src/main/java/com/gelm/musica/PlaybackService.java
       - name: Permisos y servicio
@@ -52,7 +63,6 @@ jobs:
           s = s.replace("</application>",
                         '<service android:name=".PlaybackService" android:foregroundServiceType="mediaPlayback" android:exported="false"/>\n</application>', 1)
           p.write_text(s)
-          print("manifest parcheado")
           EOF
       - run: npx cap copy
       - name: Compilar
@@ -72,7 +82,7 @@ jobs:
           cp android/app/build/outputs/apk/debug/app-debug.apk apk/gelm.apk
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add -A apk
+          git add -A apk icon-192.png icon-512.png
           git commit -m "APK actualizado [skip ci]" || echo "sin cambios"
           git fetch origin main
           git pull --rebase origin main || true
