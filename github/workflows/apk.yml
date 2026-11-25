@@ -1,0 +1,40 @@
+name: APK
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 17 }
+      - uses: android-actions/setup-android@v3
+      - run: npm install
+      - run: mkdir -p www && cp index.html sw-player.js manifest.webmanifest www/
+      - run: npx cap add android
+      - run: cp native/MainActivity.java android/app/src/main/java/com/gelm/musica/MainActivity.java
+      - run: cp native/PlaybackService.java android/app/src/main/java/com/gelm/musica/PlaybackService.java
+      - name: Permisos y servicio
+        run: |
+          python3 - <<'EOF'
+          import pathlib
+          p = pathlib.Path("android/app/src/main/AndroidManifest.xml")
+          s = p.read_text()
+          perms = ('<uses-permission android:name="android.permission.INTERNET"/>\n'
+                   '<uses-permission android:name="android.permission.WAKE_LOCK"/>\n'
+                   '<uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>\n'
+                   '<uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>\n'
+                   '<uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>\n')
+          s = s.replace("<application", perms + "<application", 1)
+          s = s.replace("</application>",
+                        '<service android:name=".PlaybackService" android:foregroundServiceType="mediaPlayback" android:exported="false"/>\n</application>', 1)
+          p.write_text(s)
+          EOF
+      - run: npx cap copy
+      - run: cd android && chmod +x gradlew && ./gradlew assembleDebug
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gelm-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
