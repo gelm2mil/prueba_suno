@@ -9,6 +9,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>GELM · Música</title>
 <link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <style>
 :root{
   --bg:#0b0b0f; --surface:#14141a; --surface2:#1d1d26; --surface3:#262632;
@@ -65,7 +67,6 @@ input{font:inherit}
 .row .meta{flex:1;min-width:0}
 .row .t{font-size:14.5px;font-weight:650;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .row .s{font-size:12px;color:var(--muted)}
-.row .num{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:26px;text-align:right;flex:none}
 .row .more{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:var(--muted);flex:none}
 .row .more svg{width:18px;height:18px;fill:currentColor}
 .sentinel{height:1px}
@@ -220,6 +221,8 @@ body.lowend .sheet .bg{filter:none;opacity:.3}
 "use strict";
 const REPO_RAW = "https://raw.githubusercontent.com/gelm2mil/prueba_suno/main/songs.json";
 const SOURCES = ["songs.json", REPO_RAW];
+const YT_PLAYLIST = "PLJGpqFTRWh98";
+const LOGO = "ICONS/GT-GELM.png";
 
 /* Playlist oficial GT-GELM incrustada: [id, titulo, segundos] */
 const YT_SEED = [
@@ -279,9 +282,12 @@ const LS = {
 };
 const $ = s => document.querySelector(s);
 const audio = $("#audio");
+const NATIVO = !!window.Capacitor;
+const openExt = url => window.open(url, NATIVO ? "_system" : "_blank");
 
 const state = {
   src: LS.get("src", "yt"),
+  ytMode: LS.get("ytMode", "out"),
   tracks: [], byId: new Map(),
   yt: [], ytById: new Map(),
   queue: [], qi: -1,
@@ -356,12 +362,10 @@ function ytPreload(){
   });
   return ytApiP;
 }
-
 function ytAllowAutoplay(){
   const f = document.querySelector("#ytHost iframe");
   if(f) f.setAttribute("allow", "autoplay; encrypted-media; picture-in-picture; fullscreen");
 }
-
 function ensurePlayer(vid){
   if(ytPlayer) return true;
   if(!(window.YT && window.YT.Player)) return false;
@@ -396,8 +400,6 @@ function ensurePlayer(vid){
   setTimeout(ytAllowAutoplay, 400);
   return true;
 }
-
-/* si en 3 s no arrancó, insistimos y avisamos para que toques play */
 function ytArm(){
   clearTimeout(ytArmT);
   ytArmT = setTimeout(() => {
@@ -408,14 +410,10 @@ function ytArm(){
     setTimeout(() => {
       let st2 = -1;
       try{ st2 = ytPlayer.getPlayerState() }catch(e){}
-      if(st2 !== 1 && st2 !== 3 && !ytBlocked){
-        ytBlocked = true; setPlayIcon(false);
-        toast("Toca ▶ para activar el audio");
-      }
+      if(st2 !== 1 && st2 !== 3 && !ytBlocked){ ytBlocked = true; setPlayIcon(false); toast("Toca ▶ para activar el audio"); }
     }, 1400);
   }, 3000);
 }
-
 function ytTitle(){
   try{
     const d = ytPlayer.getVideoData();
@@ -467,7 +465,7 @@ function normalize(data, base){
     const m = title.match(/^(\d{1,4})[\s._\-–]+(.+)$/);
     if(m){ num = m[1]; title = m[2]; }
     out.push({ id, src: "local", num, title, artist: "GELM", album: "Colección local",
-      cover: coverFor(id), url, dur: Number(raw.duration || 0) || 0 });
+      cover: LOGO, url, dur: Number(raw.duration || 0) || 0 });
   });
   return out.sort((a,b) => (parseInt(a.num,10)||9999) - (parseInt(b.num,10)||9999));
 }
@@ -513,12 +511,13 @@ function renderHome(){
   const favs = [...state.favs].map(lookup).filter(Boolean).slice(0,12);
   const last = LS.get("pos", null);
   const lastT = last && lookup(last.id);
+  const fuera = state.src === "yt" && state.ytMode === "out";
 
   v.innerHTML = `
     <div class="hero">
       <h2>GT-GELM</h2>
-      <p>${list.length} pistas · ${state.src === "yt" ? "YouTube" : "MP3 local"}</p>
-      <button class="btn" id="heroPlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Reproducir todo</button>
+      <p>${list.length} pistas · ${state.src === "yt" ? (fuera ? "se abre en YouTube" : "YouTube en la app") : "MP3 local"}</p>
+      <button class="btn" id="heroPlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>${fuera ? "Abrir playlist" : "Reproducir todo"}</button>
       <button class="btn ghost" id="heroShuffle" style="margin-left:8px">Aleatorio</button>
       ${lastT ? `<button class="btn ghost" id="heroResume" style="margin-top:10px">Continuar</button>` : ""}
     </div>
@@ -530,14 +529,24 @@ function renderHome(){
       <button id="seeAll">Ver todo</button></div>
     <div class="carousel" data-carousel>${list.slice(0,12).map(cardHTML).join("")}</div>`;
 
-  $("#heroPlay").onclick = () => list.length && playList(list, 0);
-  $("#heroShuffle").onclick = () => list.length && playList(list.slice().sort(()=>Math.random()-.5), 0);
+  $("#heroPlay").onclick = () => {
+    if(!list.length) return;
+    if(fuera) { openExt("https://www.youtube.com/playlist?list=" + YT_PLAYLIST); return; }
+    playList(list, 0);
+  };
+  $("#heroShuffle").onclick = () => {
+    if(!list.length) return;
+    if(fuera){ openExt("https://www.youtube.com/watch?v=" + list[Math.floor(Math.random()*list.length)].vid + "&list=" + YT_PLAYLIST); return; }
+    playList(list.slice().sort(()=>Math.random()-.5), 0);
+  };
   if(lastT) $("#heroResume").onclick = () => { state.queue=[lastT]; state.qi=0; startCurrent(false); openPlayer(); };
   $("#seeAll").onclick = () => { state.libFilter = "all"; renderLib(); go("lib"); };
   v.querySelectorAll("[data-carousel]").forEach(c => c.onclick = e => {
     const b = e.target.closest("[data-id]"); if(!b) return;
     const ids = [...c.querySelectorAll("[data-id]")].map(x=>x.dataset.id);
-    playList(ids.map(lookup).filter(Boolean), ids.indexOf(b.dataset.id));
+    const items = ids.map(lookup).filter(Boolean);
+    if(fuera){ openExt("https://www.youtube.com/watch?v=" + items[ids.indexOf(b.dataset.id)].vid + "&list=" + YT_PLAYLIST); return; }
+    playList(items, ids.indexOf(b.dataset.id));
   });
 }
 
@@ -618,7 +627,7 @@ function renderPlaylists(){
     ${names.length ? names.map(n => {
       const first = state.playlists[n].map(lookup).find(Boolean);
       return `<button class="row" data-pl="${esc(n)}">
-        <img class="art" src="${first?.cover || coverFor(n)}" alt="" loading="lazy">
+        <img class="art" src="${first?.cover || LOGO}" alt="" loading="lazy">
         <div class="meta"><div class="t">${esc(n)}</div><div class="s">${state.playlists[n].length} pistas</div></div>
       </button>`;
     }).join("") : `<div class="empty"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><p>Crea tu primera playlist.</p></div>`}`;
@@ -635,7 +644,7 @@ function openDetail(name){
   const list = (state.playlists[name] || []).map(lookup).filter(Boolean);
   v.innerHTML = `
     <div class="det-head">
-      <img class="art" src="${list[0]?.cover || coverFor(name)}" alt="">
+      <img class="art" src="${list[0]?.cover || LOGO}" alt="">
       <h2>${esc(name)}</h2><p>${list.length} pistas</p>
       <div class="det-actions">
         <button class="btn" id="dPlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Reproducir</button>
@@ -651,6 +660,9 @@ function openDetail(name){
 
 function renderSettings(){
   $("#view-set").innerHTML = `
+    <div class="set-item"><div><div class="lab">YouTube fuera de la app</div>
+      <div class="sub">Se abre en la app de YouTube. Recomendado: sigue sonando al bloquear</div></div>
+      <div class="switch ${state.ytMode==="out"?"on":""}" id="swYt"></div></div>
     <div class="set-item"><div><div class="lab">Animaciones</div><div class="sub">Desactívalas en equipos lentos</div></div>
       <div class="switch ${document.body.classList.contains("lowend")?"on":""}" id="swAnim"></div></div>
     <div class="set-item"><div><div class="lab">Guardar MP3 offline</div><div class="sub">Cachea lo que escuchas</div></div>
@@ -659,9 +671,16 @@ function renderSettings(){
       <button class="btn ghost" id="wipe" style="padding:9px 16px;font-size:13px">Borrar</button></div>
     <div class="set-item" style="flex-direction:column;align-items:stretch;gap:6px">
       <div class="lab">Fuentes</div>
-      <div class="sub">YouTube: playlist oficial GT-GELM (94 pistas incrustadas).</div>
+      <div class="sub">YouTube: playlist oficial GT-GELM (94 pistas).</div>
       <div class="sub">MP3: songs.json del repositorio.</div>
     </div>`;
+  $("#swYt").onclick = e => {
+    const on = e.currentTarget.classList.toggle("on");
+    state.ytMode = on ? "out" : "in";
+    LS.set("ytMode", state.ytMode);
+    stopAll(); renderHome();
+    toast(on ? "YouTube se abrirá fuera" : "YouTube dentro de la app");
+  };
   $("#swAnim").onclick = e => { e.currentTarget.classList.toggle("on"); document.body.classList.toggle("lowend", !e.currentTarget.classList.contains("on")); };
   $("#swOff").onclick = e => {
     const on = e.currentTarget.classList.toggle("on"); LS.set("offline", on);
@@ -713,7 +732,8 @@ function stopAll(){
 function playList(list, index){
   if(!list || !list.length) return;
   state.queue = list.slice(); state.qi = index || 0;
-  startCurrent(true); openPlayer();
+  startCurrent(true);
+  if(!(state.ytMode === "out" && cur()?.src === "yt")) openPlayer();
 }
 function playTrack(t){
   const l = activeList();
@@ -743,7 +763,10 @@ function startCurrent(autoplay){
 
   if(t.src === "yt"){
     audio.pause(); audio.removeAttribute("src");
-    if(autoplay) ytPlay(t); else ytPause();
+    if(state.ytMode === "out"){
+      ytStopTick();
+      if(autoplay) openExt("https://www.youtube.com/watch?v=" + t.vid + "&list=" + YT_PLAYLIST);
+    } else if(autoplay){ ytPlay(t); }
     updateSession();
   }else{
     ytPause(); ytStopTick();
@@ -762,13 +785,14 @@ function next(auto){
 function prev(){
   const t = cur();
   if(t?.src === "local" && audio.currentTime > 3){ audio.currentTime = 0; return; }
-  if(t?.src === "yt"){ try{ if(ytPlayer.getCurrentTime() > 3){ ytPlayer.seekTo(0); return; } }catch(e){} }
+  if(t?.src === "yt" && state.ytMode === "in"){ try{ if(ytPlayer.getCurrentTime() > 3){ ytPlayer.seekTo(0); return; } }catch(e){} }
   if(!state.queue.length) return;
   state.qi = (state.qi - 1 + state.queue.length) % state.queue.length;
   startCurrent(true);
 }
 function toggle(){
   const t = cur(); if(!t) return;
+  if(t.src === "yt" && state.ytMode === "out"){ openExt("https://www.youtube.com/watch?v=" + t.vid + "&list=" + YT_PLAYLIST); return; }
   if(t.src === "yt"){
     try{
       if(ytPlayer.getPlayerState() === 1){ ytPlayer.pauseVideo(); }
@@ -816,7 +840,7 @@ $("#pSeek").addEventListener("input", () => seekDrag = true);
 $("#pSeek").addEventListener("change", e => {
   const t = cur(); if(!t) return;
   const pct = e.target.value / 1000;
-  if(t.src === "yt"){ try{ ytPlayer.seekTo(ytPlayer.getDuration()*pct, true) }catch(err){} }
+  if(t.src === "yt" && state.ytMode === "in"){ try{ ytPlayer.seekTo(ytPlayer.getDuration()*pct, true) }catch(err){} }
   else if(audio.duration) audio.currentTime = audio.duration * pct;
   seekDrag = false;
 });
@@ -859,7 +883,7 @@ function openMenu(id){
     if(a === "play") playTrack(t);
     if(a === "next"){ state.queue.splice(state.qi+1, 0, t); toast("Añadida a la cola"); }
     if(a === "fav"){ state.favs.has(id) ? state.favs.delete(id) : state.favs.add(id); LS.set("favs", [...state.favs]); renderHome(); renderLib(); }
-    if(a === "open") window.open("https://www.youtube.com/watch?v=" + t.vid, "_blank");
+    if(a === "open") openExt("https://www.youtube.com/watch?v=" + t.vid + "&list=" + YT_PLAYLIST);
     if(a === "add"){
       const n = prompt("Nombre de la playlist", names[0] || "");
       if(n){ state.playlists[n] = state.playlists[n] || []; state.playlists[n].push(id); LS.set("playlists", state.playlists); renderPlaylists(); toast("Añadida"); }
@@ -887,7 +911,7 @@ function updateSession(){
     navigator.mediaSession.setActionHandler("nexttrack", () => next(false));
     navigator.mediaSession.setActionHandler("seekto", d => {
       const c = cur();
-      if(c?.src === "yt"){ try{ ytPlayer.seekTo(d.seekTime, true) }catch(e){} }
+      if(c?.src === "yt" && state.ytMode === "in"){ try{ ytPlayer.seekTo(d.seekTime, true) }catch(e){} }
       else audio.currentTime = d.seekTime;
     });
   }catch(e){}
