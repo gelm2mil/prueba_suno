@@ -23,18 +23,32 @@ public class MainActivity extends BridgeActivity {
       }
     } catch (Exception e) { }
     if (Build.VERSION.SDK_INT >= 33) {
-      try {
-        requestPermissions(new String[]{ Manifest.permission.POST_NOTIFICATIONS }, 1);
-      } catch (Exception e) { }
+      try { requestPermissions(new String[]{ Manifest.permission.POST_NOTIFICATIONS }, 1); } catch (Exception e) { }
     }
+  }
+
+  /* evita que el sistema congele el WebView y corte el audio */
+  @Override public void onPause() {
+    super.onPause();
+    try {
+      WebView wv = getBridge().getWebView();
+      if (wv != null) { wv.onResume(); wv.resumeTimers(); }
+    } catch (Exception e) { }
+  }
+
+  @Override public void onResume() {
+    super.onResume();
+    try {
+      WebView wv = getBridge().getWebView();
+      if (wv != null) wv.resumeTimers();
+    } catch (Exception e) { }
   }
 
   public class Bridge {
     @JavascriptInterface public void play() {
       try {
         Intent i = new Intent(MainActivity.this, PlaybackService.class);
-        if (Build.VERSION.SDK_INT >= 26) startForegroundService(i);
-        else startService(i);
+        if (Build.VERSION.SDK_INT >= 26) startForegroundService(i); else startService(i);
       } catch (Exception e) { }
     }
     @JavascriptInterface public void pause() {
