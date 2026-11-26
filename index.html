@@ -348,6 +348,13 @@ function setPlayIcon(on){
 }
 const cur = () => state.queue[state.qi] || null;
 
+/* Reanuda si el sistema pausó y volvemos a primer plano */
+let wantPlay = false;
+document.addEventListener("visibilitychange", () => {
+  if(document.hidden) return;
+  if(wantPlay && audio.paused && audio.src) audio.play().catch(()=>{});
+});
+
 /* ---------- YouTube ---------- */
 let ytPlayer = null, ytApiP = null, ytTick = null, ytFails = 0, ytArmT = null, ytBlocked = false;
 
@@ -771,6 +778,7 @@ function startCurrent(autoplay){
   }else{
     ytPause(); ytStopTick();
     audio.src = t.url;
+    wantPlay = !!autoplay;
     if(autoplay) audio.play().catch(()=>{});
     updateSession();
   }
@@ -800,7 +808,8 @@ function toggle(){
     }catch(e){ ytPlay(t); }
   }else{
     if(!audio.src) return;
-    audio.paused ? audio.play() : audio.pause();
+    if(audio.paused){ wantPlay = true; audio.play().catch(()=>{}); }
+    else { wantPlay = false; audio.pause(); }
   }
 }
 
